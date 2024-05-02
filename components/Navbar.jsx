@@ -21,8 +21,8 @@ function Navbar() {
   return (
     <nav className="bg-blue-700 border-b border-blue-500">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div className=" flex h-20 items-center justify-between">
-          <div className="flex items-center sm:hidden">
+        <div className="relative flex h-20 items-center justify-between">
+          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             {/* <!-- Mobile menu button--> */}
             <MobileMenuButton handleClick={() => setIsMobileMenuOpen((boo) => !boo)} />
           </div>
@@ -57,7 +57,7 @@ function Navbar() {
 
             {/* <!-- Right Side Menu (Logged In) --> */}
             {isLoggedIn && (
-              <div className=" inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <NotificationsMenu />
                 {/* <!-- Profile dropdown button --> */}
                 <div className="relative ml-3">

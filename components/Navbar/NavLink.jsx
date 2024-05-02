@@ -3,7 +3,7 @@ import Link from "next/link";
 import { clsx } from "clsx/lite";
 import { usePathname } from "next/navigation";
 
-function NavLink({ href, className, linkActive, children, ...props }) {
+function NavLink({ href, className = "", linkActive = "", children, ...props }) {
   const pathname = usePathname();
   const isActive = href === pathname;
 
@@ -27,11 +27,6 @@ NavLink.PropTypes = {
   href: PropTypes.string.isRequired,
   className: PropTypes.string,
   linkActive: PropTypes.string,
-};
-
-NavLink.defaultProps = {
-  className: "",
-  linkActive: "",
 };
 
 export default NavLink;
