@@ -49,7 +49,7 @@ function Navbar() {
             {/* <!-- Right Side Menu (Logged Out) --> */}
             {!isLoggedIn && (
               <div className="hidden sm:block">
-                <div className="flex items-center">
+                <div className="flex item         s-center">
                   <LogInButton />
                 </div>
               </div>

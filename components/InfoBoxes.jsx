@@ -1,6 +1,5 @@
 import { link } from "fs";
 import InfoBox from "./InfoBox";
-import { text } from "stream/consumers";
 
 function InfoBoxes() {
   return (
