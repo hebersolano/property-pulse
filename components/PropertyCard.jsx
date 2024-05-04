@@ -15,8 +15,7 @@ function PropertyCard({ property }) {
     <div className="rounded-xl shadow-md relative">
       <Image
         src={`/images/properties/${property.images[0]}`}
-        alt=""
-        // fill={true}
+        alt={`${property.name} photo`}
         sizes="(min-width: 1024px) 29vw, (min-width: 768px) 44vw, 89vw"
         className="w-full h-auto rounded-t-xl"
         width={16}

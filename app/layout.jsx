@@ -12,7 +12,7 @@ export const metadata = {
 function MainLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body className="h-full m-0">
         <Navbar />
         <main>{children}</main>
         <Footer />

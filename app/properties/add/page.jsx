@@ -1,5 +1,7 @@
+import LoadingPage from "@/app/loading";
+
 function AddPropertyPage() {
-  return <div>AddPropertyPage</div>;
+  return <LoadingPage />;
 }
 
 export default AddPropertyPage;
