@@ -1,23 +1,28 @@
-import { getRateDisplay } from "@/helpers";
 import Image from "next/image";
 import Link from "next/link";
 import { FaBath, FaBed, FaMapMarker, FaMoneyBill, FaRulerCombined } from "react-icons/fa";
+
+function getRateDisplay(rates) {
+  if (rates.monthly) return `${rates.monthly.toLocaleString()}/mo`;
+  else if (rates.weekly) return `${rates.weekly.toLocaleString()}/wk`;
+  else if (rates.nightly) return `${rates.nightly.toLocaleString()}/night`;
+}
 
 function PropertyCard({ property }) {
   const rateDisplay = getRateDisplay(property.rates);
 
   return (
-    <div className="rounded-xl shadow-md relative">
+    <div className="rounded-xl shadow-md relative bg-white flex flex-col md:flex-row">
       <Image
         src={`/images/properties/${property.images[0]}`}
         alt={`${property.name} photo`}
         sizes="(min-width: 1024px) 29vw, (min-width: 768px) 44vw, 89vw"
-        className="w-full h-auto rounded-t-xl"
+        className="object-cover rounded-t-xl md:rounded-tr-none md:rounded-l-xl w-full md:w-2/5"
         width={16}
         height={9}
       />
 
-      <div className="p-4">
+      <div className="p-6">
         <div className="text-left md:text-center lg:text-left mb-6">
           <div className="text-gray-600">{property.type}</div>
           <h3 className="text-xl font-bold">{property.name}</h3>

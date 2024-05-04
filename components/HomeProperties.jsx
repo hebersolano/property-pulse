@@ -1,6 +1,8 @@
 import properties from "@/properties.json";
 import PropertyCard from "./PropertyCard";
+import PropertyCard2 from "./PropertyCard2";
 import Link from "next/link";
+import FeaturedProperty from "./FeaturedProperty";
 
 function HomeProperties() {
   let recentProperties = properties.slice(0, 3);
@@ -9,15 +11,15 @@ function HomeProperties() {
   return (
     <>
       {/*  Featured Properties */}
-      <section class="bg-blue-50 px-4 pt-6 pb-10">
-        <div class="container-xl lg:container m-auto">
+      <section class=" bg-blue-50 px-4 pt-6 pb-10">
+        <div class="container-xl m-auto">
           <h2 class="text-3xl font-bold text-blue-500 mb-6 text-center">Featured Properties</h2>
           {properties.length === 0 ? (
             <div>No properties found</div>
           ) : (
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               {featuredProperties.map((property) => (
-                <PropertyCard key={property._id} property={property} />
+                <FeaturedProperty key={property._id} property={property} />
               ))}
             </div>
           )}
