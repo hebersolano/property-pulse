@@ -1,9 +1,23 @@
-import properties from "@/properties.json";
+// import properties from "@/properties.json";
 import PropertyCard from "./PropertyCard";
 import Link from "next/link";
 import FeaturedProperty from "./FeaturedProperty";
 
-function HomeProperties() {
+const NEXT_API = process.env.NEXT_API;
+
+async function fetchProperties() {
+  try {
+    const res = await fetch(`${NEXT_API}/properties`);
+    if (!res.ok) throw new Error("Failed to fetch data");
+    return await res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function HomeProperties() {
+  const properties = await fetchProperties();
+
   let recentProperties = properties.slice(0, 3);
   let featuredProperties = properties.filter((property) => property.is_featured).slice(0, 2);
 

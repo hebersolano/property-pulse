@@ -4,7 +4,17 @@ React project from the [Next.js From Scratch 2024](https://www.udemy.com/course/
 
 ## Knowledge applied:
 
-- File-base routing
+- App Routing:
+  - File-system based router.
+  - page file conventions in nested routes: `layout.jsx`, `page.jsx`, `loading.jsx`, `error.jsx`, etc.
+  - custom not found and loading page.
+- Server vs client components
+- NextJS components: `Link`, `Image`.
+  - setup responsive Image components to better performance.
+- NextJS api routes
+- MongoDB
+  - Cluster configuration
+  - mongoose: data modeling and fetching
 
 ## Planning:
 
@@ -28,11 +38,13 @@ By building "" project with these technologies and concepts, I've developed a co
 
 ### Technology decisions:
 
-- Routing: nextjs router
+- Routing: NextJS app router
 - Styling: tailwind
 - UI state management:
 - Form management:
+- Database: MongoDB
 - Other tools:
+  - Icons: react-icons
 
 ## Things to check
 

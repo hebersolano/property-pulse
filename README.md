@@ -21,11 +21,11 @@
   </h3>
 
   <div>
-    <a href="">View Demo</a>
+    <a href="#">View Demo</a>
     &emsp;•&emsp;
-    <a href="">Report Bug</a>
+    <a href="#">Report Bug</a>
    &emsp;•&emsp;
-    <a href="">Request Feature</a>
+    <a href="#">Request Feature</a>
   </div>
 
   <br>
