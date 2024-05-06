@@ -2,18 +2,7 @@
 import PropertyCard from "./PropertyCard";
 import Link from "next/link";
 import FeaturedProperty from "./FeaturedProperty";
-
-const NEXT_API = process.env.NEXT_API;
-
-async function fetchProperties() {
-  try {
-    const res = await fetch(`${NEXT_API}/properties`);
-    if (!res.ok) throw new Error("Failed to fetch data");
-    return await res.json();
-  } catch (error) {
-    console.log(error);
-  }
-}
+import { fetchProperties } from "@/config/services/propertiesApi";
 
 async function HomeProperties() {
   const properties = await fetchProperties();

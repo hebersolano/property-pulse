@@ -1,4 +1,4 @@
-import Property from "@/models/Property";
+import Property from "@/config/models/Property";
 import { connectDB } from "@/config/database";
 connectDB();
 
