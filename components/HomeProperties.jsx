@@ -19,7 +19,7 @@ async function HomeProperties() {
           {properties.length === 0 ? (
             <div>No properties found</div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {featuredProperties.map((property) => (
                 <FeaturedProperty key={property._id} property={property} />
               ))}

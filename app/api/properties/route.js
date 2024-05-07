@@ -1,6 +1,7 @@
 import Property from "@/config/models/Property";
 import { connectDB } from "@/config/database";
-connectDB();
+
+// connectDB();
 
 // GET /api/properties
 export async function GET() {

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { FaGoogle } from "react-icons/fa";
 import NavLink from "./NavLink";
 

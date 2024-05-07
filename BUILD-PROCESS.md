@@ -8,13 +8,15 @@ React project from the [Next.js From Scratch 2024](https://www.udemy.com/course/
   - File-system based router.
   - page file conventions in nested routes: `layout.jsx`, `page.jsx`, `loading.jsx`, `error.jsx`, etc.
   - custom not found and loading page.
+- NextJS api routes
+  - Handle http requests
 - Server vs client components
 - NextJS components: `Link`, `Image`.
   - setup responsive Image components to better performance.
-- NextJS api routes
 - MongoDB
   - Cluster configuration
   - mongoose: data modeling and fetching
+- Authentication with NextAuth
 
 ## Planning:
 

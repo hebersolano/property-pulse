@@ -33,6 +33,5 @@ const PropertySchema = new Schema(
 );
 
 const Property = models.Property || model("Property", PropertySchema);
-console.log(models);
 
 export default Property;

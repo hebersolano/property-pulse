@@ -1,5 +1,4 @@
 const NEXT_API = process.env.NEXT_PUBLIC_API || null;
-console.log(NEXT_API);
 
 export async function fetchProperties() {
   try {
@@ -17,7 +16,6 @@ export async function fetchProperties() {
 
 export async function getProperty(id) {
   try {
-    console.log(NEXT_API);
     const res = await fetch(`${NEXT_API}/properties/${id}`);
     if (!res.ok) throw new Error("Failed to fetch data");
 

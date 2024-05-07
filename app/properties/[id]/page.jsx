@@ -4,7 +4,6 @@ import LoadingPage from "@/app/loading";
 import ContactForm from "@/components/ContactForm";
 import PropertyDetails from "@/components/Navbar/PropertyDetails";
 import PropertyHederImage from "@/components/PropertyHederImage";
-import PropertyInfo from "@/components/PropertyInfo";
 import { getProperty } from "@/config/services/propertiesApi";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
