@@ -1,8 +1,9 @@
+import dbConnect from "@/config/dbConnect";
 import Property from "@/config/models/Property";
-import "@/config/dbConnect"; // DB connection context
 
 // GET /api/properties
 export async function GET(req, { params }) {
+  await dbConnect();
   try {
     const property = await Property.findById(params.id);
 

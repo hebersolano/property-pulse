@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
-var global = {
-  mongoose: null, // This must be a `var` and not a `let / const`
-};
+if (global?.mongoose === undefined) {
+  global.mongoose = null;
+}
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
@@ -18,6 +18,7 @@ if (!cached) {
 
 async function dbConnect() {
   if (cached.conn) {
+    console.log("Cached connection");
     return cached.conn;
   }
   if (!cached.promise) {
@@ -25,7 +26,7 @@ async function dbConnect() {
       bufferCommands: false,
     };
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      console.log("DB connection stablish");
+      console.log("DB connection started");
       return mongoose;
     });
   }
@@ -40,4 +41,4 @@ async function dbConnect() {
   return cached.conn;
 }
 
-await dbConnect();
+export default dbConnect;

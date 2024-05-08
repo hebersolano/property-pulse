@@ -1,6 +1,6 @@
 import GoogleProvider from "next-auth/providers/google";
-import "@/config/dbConnect"; // DB connection context
 import User from "./models/User";
+import dbConnect from "./dbConnect";
 
 const authOptions = {
   providers: [
@@ -20,6 +20,7 @@ const authOptions = {
   callbacks: {
     // invoked on successful sign-in
     async signIn({ profile }) {
+      await dbConnect();
       console.log("profiles authOpts:", profile);
 
       // 1. connect to database
@@ -35,6 +36,7 @@ const authOptions = {
     },
     // Modifies the session object
     async session({ session }) {
+      await dbConnect();
       console.log("Session authOpts:", session);
       // 1. ge user from database
       const user = await User.findOne({ email: session.user.email });
