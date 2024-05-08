@@ -1,10 +1,11 @@
 import GoogleProvider from "next-auth/providers/google";
-import { connectDB } from "./database";
+import "@/config/dbConnect"; // DB connection context
 import User from "./models/User";
 
 const authOptions = {
   providers: [
     GoogleProvider({
+      debug: true,
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       authorization: {

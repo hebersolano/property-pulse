@@ -14,6 +14,6 @@ async function connectDB() {
   });
 }
 
-connectDB();
+// connectDB();
 
-export { connectDB };
+// export { connectDB };

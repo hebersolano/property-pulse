@@ -1,4 +1,3 @@
-import React from "react";
 import "@/assets/styles/globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -14,7 +13,7 @@ function MainLayout({ children }) {
   return (
     <AuthProvider>
       <html lang="en">
-        <body className="h-full m-0">
+        <body className="">
           <Navbar />
           <main>{children}</main>
           <Footer />
