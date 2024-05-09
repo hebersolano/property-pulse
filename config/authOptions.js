@@ -21,7 +21,7 @@ const authOptions = {
     // invoked on successful sign-in
     async signIn({ profile }) {
       await dbConnect();
-      console.log("profiles authOpts:", profile);
+      // console.log("profiles authOpts:", profile);
 
       // 1. connect to database
       // 2 Check if user exist
@@ -37,7 +37,7 @@ const authOptions = {
     // Modifies the session object
     async session({ session }) {
       await dbConnect();
-      console.log("Session authOpts:", session);
+      // console.log("Session authOpts:", session);
       // 1. ge user from database
       const user = await User.findOne({ email: session.user.email });
       // 2. assign the user id to the session

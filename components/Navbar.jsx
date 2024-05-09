@@ -22,15 +22,15 @@ function Navbar() {
   useEffect(function () {
     async function setAuthProviders() {
       const res = await getProviders();
-      console.log("res providers", res);
+      // console.log("res providers", res);
       setProviders(res);
     }
 
     setAuthProviders();
   }, []);
 
-  console.log("session:", session);
-  console.log("providers:", providers);
+  // console.log("session:", session);
+  // console.log("providers:", providers);
 
   return (
     <nav className="bg-blue-700 border-b border-blue-500">
