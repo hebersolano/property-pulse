@@ -1,13 +1,38 @@
+"use client";
+import { useForm } from "react-hook-form";
+import FormRow from "./FormRow";
+
+const requiredField = { required: "This field is required" };
+
 function PropertyAddForm() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  function onSubmit(data) {
+    console.log(data);
+  }
+
+  console.log(errors);
+
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <h2 className="text-3xl text-center font-semibold mb-6">Add Property</h2>
 
       <div className="mb-4">
         <label htmlFor="type" className="block text-gray-700 font-bold mb-2">
-          Property Type
+          Property Type<span className="text-gray-400">*</span>
         </label>
-        <select id="type" name="type" className="border rounded w-full py-2 px-3" required>
+        <select
+          id="type"
+          name="type"
+          defaultValue="Apartment"
+          {...register("type", requiredField)}
+          className="border rounded w-full py-2 px-3"
+        >
           <option value="Apartment">Apartment</option>
           <option value="Condo">Condo</option>
           <option value="House">House</option>
@@ -16,102 +41,113 @@ function PropertyAddForm() {
           <option value="Studio">Studio</option>
           <option value="Other">Other</option>
         </select>
+        {errors.type && <span className="text-red-700">{errors.type}</span>}
       </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2">Listing Name</label>
+
+      <FormRow label="Listing Name" error={errors.name?.message} required={true}>
         <input
           type="text"
           id="name"
           name="name"
-          className="border rounded w-full py-2 px-3 mb-2"
+          {...register("name", requiredField)}
           placeholder="eg. Beautiful Apartment In Miami"
-          required
         />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="description" className="block text-gray-700 font-bold mb-2">
-          Description
-        </label>
+      </FormRow>
+
+      <FormRow label="Description">
         <textarea
           id="description"
           name="description"
-          className="border rounded w-full py-2 px-3"
+          {...register("description")}
           rows="4"
           placeholder="Add an optional description of your property"
         ></textarea>
-      </div>
+      </FormRow>
 
       <div className="mb-4 bg-blue-50 p-4">
-        <label className="block text-gray-700 font-bold mb-2">Location</label>
-        <input
-          type="text"
-          id="street"
-          name="location.street"
-          className="border rounded w-full py-2 px-3 mb-2"
-          placeholder="Street"
-        />
-        <input
-          type="text"
-          id="city"
-          name="location.city"
-          className="border rounded w-full py-2 px-3 mb-2"
-          placeholder="City"
-          required
-        />
-        <input
-          type="text"
-          id="state"
-          name="location.state"
-          className="border rounded w-full py-2 px-3 mb-2"
-          placeholder="State"
-          required
-        />
-        <input
-          type="text"
-          id="zipcode"
-          name="location.zipcode"
-          className="border rounded w-full py-2 px-3 mb-2"
-          placeholder="Zipcode"
-        />
+        <FormRow label="Location" rowClass="mb-2">
+          <input
+            type="text"
+            id="street"
+            name="location.street"
+            {...register("location.street")}
+            placeholder="Street"
+          />
+        </FormRow>
+
+        <FormRow rowClass="mb-2" error={errors.location?.city?.message} required={true}>
+          <input
+            type="text"
+            id="city"
+            name="location.city"
+            {...register("location.city", requiredField)}
+            placeholder="City"
+          />
+        </FormRow>
+
+        <FormRow rowClass="mb-2" error={errors.location?.state?.message} required={true}>
+          <input
+            type="text"
+            id="state"
+            name="location.state"
+            {...register("location.state", requiredField)}
+            placeholder="State"
+          />
+        </FormRow>
+
+        <FormRow rowClass="mb-2" error={errors.location?.zipcode?.message} required={true}>
+          <input
+            type="text"
+            id="zipcode"
+            name="location.zipcode"
+            {...register("location.zipcode", requiredField)}
+            placeholder="Zipcode"
+          />
+        </FormRow>
       </div>
 
       <div className="mb-4 flex flex-wrap">
-        <div className="w-full sm:w-1/3 pr-2">
-          <label htmlFor="beds" className="block text-gray-700 font-bold mb-2">
-            Beds
-          </label>
+        <FormRow rowClass="w-full sm:w-1/3 pr-2" label="Beds">
           <input
             type="number"
             id="beds"
             name="beds"
-            className="border rounded w-full py-2 px-3"
-            required
+            defaultValue={0}
+            min={0}
+            {...register("beds", {
+              valueAsNumber: true,
+              min: { value: 0, message: "Negative numbers not allowed" },
+            })}
           />
-        </div>
-        <div className="w-full sm:w-1/3 px-2">
-          <label htmlFor="baths" className="block text-gray-700 font-bold mb-2">
-            Baths
-          </label>
+        </FormRow>
+
+        <FormRow rowClass="w-full sm:w-1/3 pr-2" label="Baths">
           <input
             type="number"
             id="baths"
             name="baths"
-            className="border rounded w-full py-2 px-3"
-            required
+            defaultValue={0}
+            min={0}
+            {...register("baths", {
+              valueAsNumber: true,
+              min: { value: 0, message: "Negative numbers not allowed" },
+            })}
           />
-        </div>
-        <div className="w-full sm:w-1/3 pl-2">
-          <label htmlFor="square_feet" className="block text-gray-700 font-bold mb-2">
-            Square Feet
-          </label>
+        </FormRow>
+
+        <FormRow rowClass="w-full sm:w-1/3 pr-2" label="Square Feet">
           <input
             type="number"
             id="square_feet"
             name="square_feet"
-            className="border rounded w-full py-2 px-3"
-            required
+            min={0}
+            defaultValue={0}
+            {...register("square_feet", {
+              valueAsNumber: true,
+              min: { value: 0, message: "Negative numbers not allowed" },
+            })}
           />
-        </div>
+        </FormRow>
       </div>
 
       <div className="mb-4">
@@ -122,6 +158,7 @@ function PropertyAddForm() {
               type="checkbox"
               id="amenity_wifi"
               name="amenities"
+              {...register("amenities")}
               value="Wifi"
               className="mr-2"
             />
@@ -132,6 +169,7 @@ function PropertyAddForm() {
               type="checkbox"
               id="amenity_kitchen"
               name="amenities"
+              {...register("amenities")}
               value="Full Kitchen"
               className="mr-2"
             />
@@ -142,6 +180,7 @@ function PropertyAddForm() {
               type="checkbox"
               id="amenity_washer_dryer"
               name="amenities"
+              {...register("amenities")}
               value="Washer & Dryer"
               className="mr-2"
             />
@@ -152,6 +191,7 @@ function PropertyAddForm() {
               type="checkbox"
               id="amenity_free_parking"
               name="amenities"
+              {...register("amenities")}
               value="Free Parking"
               className="mr-2"
             />
@@ -162,6 +202,7 @@ function PropertyAddForm() {
               type="checkbox"
               id="amenity_pool"
               name="amenities"
+              {...register("amenities")}
               value="Swimming Pool"
               className="mr-2"
             />
@@ -172,6 +213,7 @@ function PropertyAddForm() {
               type="checkbox"
               id="amenity_hot_tub"
               name="amenities"
+              {...register("amenities")}
               value="Hot Tub"
               className="mr-2"
             />
@@ -182,6 +224,7 @@ function PropertyAddForm() {
               type="checkbox"
               id="amenity_24_7_security"
               name="amenities"
+              {...register("amenities")}
               value="24/7 Security"
               className="mr-2"
             />
@@ -192,6 +235,7 @@ function PropertyAddForm() {
               type="checkbox"
               id="amenity_wheelchair_accessible"
               name="amenities"
+              {...register("amenities")}
               value="Wheelchair Accessible"
               className="mr-2"
             />
@@ -202,6 +246,7 @@ function PropertyAddForm() {
               type="checkbox"
               id="amenity_elevator_access"
               name="amenities"
+              {...register("amenities")}
               value="Elevator Access"
               className="mr-2"
             />
@@ -212,6 +257,7 @@ function PropertyAddForm() {
               type="checkbox"
               id="amenity_dishwasher"
               name="amenities"
+              {...register("amenities")}
               value="Dishwasher"
               className="mr-2"
             />
@@ -222,6 +268,7 @@ function PropertyAddForm() {
               type="checkbox"
               id="amenity_gym_fitness_center"
               name="amenities"
+              {...register("amenities")}
               value="Gym/Fitness Center"
               className="mr-2"
             />
@@ -232,6 +279,7 @@ function PropertyAddForm() {
               type="checkbox"
               id="amenity_air_conditioning"
               name="amenities"
+              {...register("amenities")}
               value="Air Conditioning"
               className="mr-2"
             />
@@ -242,6 +290,7 @@ function PropertyAddForm() {
               type="checkbox"
               id="amenity_balcony_patio"
               name="amenities"
+              {...register("amenities")}
               value="Balcony/Patio"
               className="mr-2"
             />
@@ -252,6 +301,7 @@ function PropertyAddForm() {
               type="checkbox"
               id="amenity_smart_tv"
               name="amenities"
+              {...register("amenities")}
               value="Smart TV"
               className="mr-2"
             />
@@ -262,6 +312,7 @@ function PropertyAddForm() {
               type="checkbox"
               id="amenity_coffee_maker"
               name="amenities"
+              {...register("amenities")}
               value="Coffee Maker"
               className="mr-2"
             />
@@ -275,100 +326,103 @@ function PropertyAddForm() {
           Rates (Leave blank if not applicable)
         </label>
         <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
-          <div className="flex items-center">
-            <label htmlFor="weekly_rate" className="mr-2">
-              Weekly
-            </label>
+          <FormRow rowClass="flex items-center" label="Weekly">
             <input
               type="number"
               id="weekly_rate"
               name="rates.weekly"
-              className="border rounded w-full py-2 px-3"
+              min={0}
+              defaultValue={0}
+              {...register("rates.weekly", {
+                valueAsNumber: true,
+                min: { value: 0, message: "Negative numbers not allowed" },
+              })}
             />
-          </div>
-          <div className="flex items-center">
-            <label htmlFor="monthly_rate" className="mr-2">
-              Monthly
-            </label>
+          </FormRow>
+
+          <FormRow rowClass="flex items-center" label="Monthly">
             <input
               type="number"
               id="monthly_rate"
               name="rates.monthly"
-              className="border rounded w-full py-2 px-3"
+              min={0}
+              defaultValue={0}
+              {...register("rates.monthly", {
+                valueAsNumber: true,
+                min: { value: 0, message: "Negative numbers not allowed" },
+              })}
             />
-          </div>
-          <div className="flex items-center">
-            <label htmlFor="nightly_rate" className="mr-2">
-              Nightly
-            </label>
+          </FormRow>
+
+          <FormRow rowClass="flex items-center" label="Nightly">
             <input
               type="number"
               id="nightly_rate"
               name="rates.nightly"
-              className="border rounded w-full py-2 px-3"
+              min={0}
+              defaultValue={0}
+              {...register("rates.nightly", {
+                valueAsNumber: true,
+                min: { value: 0, message: "Negative numbers not allowed" },
+              })}
             />
-          </div>
+          </FormRow>
         </div>
       </div>
 
-      <div className="mb-4">
-        <label htmlFor="seller_name" className="block text-gray-700 font-bold mb-2">
-          Seller Name
-        </label>
+      <FormRow rowClass="mb-4" label="Seller name">
         <input
           type="text"
           id="seller_name"
-          name="seller_info.name."
-          className="border rounded w-full py-2 px-3"
+          {...register("seller_info.name")}
+          name="seller_info.name"
           placeholder="Name"
         />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="seller_email" className="block text-gray-700 font-bold mb-2">
-          Seller Email
-        </label>
+      </FormRow>
+
+      <FormRow rowClass="mb-4" label="Seller email">
         <input
           type="email"
           id="seller_email"
           name="seller_info.email"
-          className="border rounded w-full py-2 px-3"
+          {...register("seller_info.email")}
           placeholder="Email address"
-          required
         />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="seller_phone" className="block text-gray-700 font-bold mb-2">
-          Seller Phone
-        </label>
+      </FormRow>
+
+      <FormRow rowClass="mb-4" label="Seller Phone  ">
         <input
           type="tel"
           id="seller_phone"
           name="seller_info.phone"
-          className="border rounded w-full py-2 px-3"
+          {...register("seller_info.phone")}
           placeholder="Phone"
         />
-      </div>
+      </FormRow>
 
-      <div className="mb-4">
-        <label htmlFor="images" className="block text-gray-700 font-bold mb-2">
-          Images (Select up to 4 images)
-        </label>
+      <FormRow rowClass="mb-4" label="Images (Select up to 4 images)">
         <input
           type="file"
           id="images"
+          {...register("images")}
           name="images"
-          className="border rounded w-full py-2 px-3"
           accept="image/*"
           multiple
         />
-      </div>
+      </FormRow>
 
-      <div>
+      <div className="flex gap-2 mt-3">
         <button
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
+          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2   px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
           type="submit"
         >
           Add Property
+        </button>
+        <button
+          onClick={() => reset()}
+          className="bg-blue-100 hover:text-white hover:bg-blue-500 text-blue-600 font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
+        >
+          Reset
         </button>
       </div>
     </form>

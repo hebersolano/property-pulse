@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import Link from "next/link";
-import { clsx } from "clsx/lite";
 import { usePathname } from "next/navigation";
+import { twJoin } from "tailwind-merge";
 
 function NavLink({ href, className = "", linkActive = "", children, ...props }) {
   const pathname = usePathname();
@@ -10,7 +10,7 @@ function NavLink({ href, className = "", linkActive = "", children, ...props }) 
   return (
     <Link
       href={href}
-      className={clsx(
+      className={twJoin(
         className,
         "text-gray-300 hover:bg-gray-700 hover:text-white ",
         "block rounded-md px-3 py-2 text-base font-medium",
