@@ -1,6 +1,7 @@
 "use client";
 import { useForm } from "react-hook-form";
 import FormRow from "./FormRow";
+import { addProperty } from "@/config/services/propertiesApi";
 
 const requiredField = { required: "This field is required" };
 
@@ -9,11 +10,11 @@ function PropertyAddForm() {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
 
-  function onSubmit(data) {
-    console.log(data);
+  async function onSubmit(data) {
+    await addProperty(data);
   }
 
   console.log(errors);
@@ -404,7 +405,7 @@ function PropertyAddForm() {
         <input
           type="file"
           id="images"
-          {...register("images")}
+          {...register("images", { required: true })}
           name="images"
           accept="image/*"
           multiple
@@ -415,12 +416,14 @@ function PropertyAddForm() {
         <button
           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2   px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
           type="submit"
+          disabled={isSubmitting}
         >
           Add Property
         </button>
         <button
           onClick={() => reset()}
           className="bg-blue-100 hover:text-white hover:bg-blue-500 text-blue-600 font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
+          disabled={isSubmitting}
         >
           Reset
         </button>

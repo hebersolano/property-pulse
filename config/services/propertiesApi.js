@@ -25,3 +25,28 @@ export async function getProperty(id) {
     console.log(error);
   }
 }
+
+export async function addProperty(data) {
+  try {
+    console.log(data);
+
+    await fetch(`${NEXT_API}/properties?type=json`, {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+
+    if (data.images.length > 0) {
+      const formData = new FormData();
+      for (const file of data.images) {
+        formData.append("images", file, file.name);
+      }
+
+      const file = await fetch(`${NEXT_API}/properties?type=file`, {
+        method: "POST",
+        body: formData,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}

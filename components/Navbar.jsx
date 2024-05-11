@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -11,26 +11,24 @@ import LogInButton from "./Navbar/LogInButton";
 import NavLink from "./Navbar/NavLink";
 
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import MiniSpinner from "./MiniSpinner";
 
 function Navbar() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  console.log("session status:", status);
   const profileImg = session?.user?.image;
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
-  const [providers, setProviders] = useState();
+  // const [providers, setProviders] = useState();
 
-  useEffect(function () {
-    async function setAuthProviders() {
-      const res = await getProviders();
-      // console.log("res providers", res);
-      setProviders(res);
-    }
+  // useEffect(function () {
+  //   async function setAuthProviders() {
+  //     const res = await getProviders();
+  //     setProviders(res);
+  //   }
 
-    setAuthProviders();
-  }, []);
-
-  // console.log("session:", session);
-  // console.log("providers:", providers);
+  //   setAuthProviders();
+  // }, []);
 
   return (
     <nav className="bg-blue-700 border-b border-blue-500">
@@ -61,19 +59,16 @@ function Navbar() {
 
           <div className="flex justify-between items-center">
             {/* <!-- Right Side Menu (Logged Out) --> */}
-            {!session && (
+            {status === "unauthenticated" && (
               <div className="hidden sm:block">
                 <div className="flex items-center">
-                  {providers &&
-                    Object.values(providers).map((provider, i) => (
-                      <LogInButton key={i} onClick={() => signIn(provider.id)} />
-                    ))}
+                  <LogInButton onClick={() => signIn("google")} />
                 </div>
               </div>
             )}
 
             {/* <!-- Right Side Menu (Logged In) --> */}
-            {session && (
+            {status === "authenticated" && (
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <NotificationsMenu />
                 {/* <!-- Profile dropdown button --> */}
@@ -82,6 +77,8 @@ function Navbar() {
                 </div>
               </div>
             )}
+
+            {status === "loading" && <MiniSpinner />}
           </div>
         </div>
       </div>
@@ -99,10 +96,7 @@ function Navbar() {
             {!session && (
               <div className="md:hidden ">
                 <div className="flex items-center">
-                  {providers &&
-                    Object.values(providers).map((provider, i) => (
-                      <LogInButton key={i} onClick={() => signIn(provider.id)} />
-                    ))}
+                  <LogInButton onClick={() => signIn("google")} />
                 </div>
               </div>
             )}
