@@ -26,37 +26,37 @@ export async function POST(req) {
     const type = searchParams.get("type");
 
     let info;
-    let file;
+    let imagesUrl = [];
+
+    if (type === "file") {
+      const data = await req.formData();
+      const images = data.getAll("images");
+      console.log(images);
+
+      for (const image of images) {
+        const imageBuffer = await image.arrayBuffer();
+        const buffer = new Uint8Array(imageBuffer);
+
+        await new Promise((resolve, reject) => {
+          cloudinary.uploader
+            .upload_stream({ folder: "property-pulse" }, function (error, result) {
+              if (error) {
+                reject(error);
+                return;
+              }
+              console.log(result);
+              imagesUrl.push(result.secure_url);
+              resolve(result);
+            })
+            .end(buffer);
+        });
+      }
+    }
+
     if (type === "json") {
       info = await req.json();
       info.owner = session.user.id;
       console.log("info", info);
-    }
-    if (type === "file") {
-      const data = await req.formData();
-      const images = data.getAll("images");
-      console.log("images", images);
-      for (const image of images) {
-        const imageBuffer = await image.arrayBuffer();
-        const buffer = new Uint8Array(imageBuffer);
-        await new Promise((resolve, reject) => {
-          cloudinary.uploader
-            .upload_stream(
-              { folder: "property-pulse", asset_folder: "pulse" },
-              function (error, result) {
-                if (error) {
-                  reject(error);
-                  return;
-                }
-                resolve(result);
-              }
-            )
-            .end(buffer);
-        });
-      }
-      // const bytes = await file.arrayBuffer();
-      // const buffer = Buffer.from(bytes);
-      // console.log("images", buffer);
     }
 
     return new Response(JSON.stringify(info), { status: 200 });

@@ -1,4 +1,5 @@
-import { ClipLoader, PulseLoader } from "react-spinners";
+"use client";
+import { PulseLoader } from "react-spinners";
 
 function MiniSpinner() {
   return (

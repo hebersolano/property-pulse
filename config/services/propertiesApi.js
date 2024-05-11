@@ -30,10 +30,7 @@ export async function addProperty(data) {
   try {
     console.log(data);
 
-    await fetch(`${NEXT_API}/properties?type=json`, {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
+
 
     if (data.images.length > 0) {
       const formData = new FormData();
@@ -46,6 +43,11 @@ export async function addProperty(data) {
         body: formData,
       });
     }
+
+    await fetch(`${NEXT_API}/properties?type=json`, {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
   } catch (error) {
     console.log(error);
   }
