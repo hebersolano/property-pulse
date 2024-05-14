@@ -20,7 +20,11 @@ const PropertySchema = new Schema(
     baths: { type: Number, required: true },
     square_feet: { type: Number, required: true },
     amenities: [{ type: String }],
-    rates: { nightly: String, weekly: String, monthly: String },
+    rates: {
+      nightly: { type: Number },
+      weekly: { type: Number },
+      monthly: { type: Number },
+    },
     seller_info: {
       name: String,
       email: String,

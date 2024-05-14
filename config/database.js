@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 async function connectDB() {
   mongoose
-    .connect(process.env.MONGODB_URI)
+    .connect("mongodb://127.0.0.1:27017/property-pulse")
     .catch((err) => console.log("Error connecting to the DB:", err)); // initial connection errors
 
   mongoose.connection.on("error", (err) => {
@@ -14,6 +14,6 @@ async function connectDB() {
   });
 }
 
-// connectDB();
+connectDB();
 
 // export { connectDB };

@@ -1,0 +1,30 @@
+[{
+  "_id": {
+    "$oid": "663994b8d0e3688ceda7d45f"
+  },
+  "email": "edilsonsolano1@gmail.com",
+  "username": "Edilson Solano",
+  "image": "https://lh3.googleusercontent.com/a/ACg8ocKoBn4pw2HjQd3gdRAibeBfUnR_t6RawABqg624a_JFrlBDT7g=s96-c",
+  "createdAt": {
+    "$date": "2024-05-07T02:40:56.304Z"
+  },
+  "updatedAt": {
+    "$date": "2024-05-07T02:40:56.304Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6639a9d5b3dcaf2b0418b67e"
+  },
+  "email": "hebersolano1@gmail.com",
+  "username": "Heber Solano",
+  "image": "https://lh3.googleusercontent.com/a/ACg8ocIs3kUTr18UF456eHqLjOqtZr5N-ZHMmfGgn7FIHU8ap3YZolsMOQ=s96-c",
+  "createdAt": {
+    "$date": "2024-05-07T04:11:02.009Z"
+  },
+  "updatedAt": {
+    "$date": "2024-05-07T04:11:02.009Z"
+  },
+  "__v": 0
+}]

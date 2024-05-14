@@ -4,7 +4,7 @@ export async function fetchProperties() {
   try {
     if (!NEXT_API) return [];
 
-    const res = await fetch(`${NEXT_API}/properties`);
+    const res = await fetch(`${NEXT_API}/properties`, { cache: "no-store" });
     if (!res.ok) throw new Error("Failed to fetch data");
 
     const properties = await res.json();
@@ -16,10 +16,11 @@ export async function fetchProperties() {
 
 export async function getProperty(id) {
   try {
-    const res = await fetch(`${NEXT_API}/properties/${id}`);
+    const res = await fetch(`${NEXT_API}/properties/${id}`, { cache: "no-cache" });
     if (!res.ok) throw new Error("Failed to fetch data");
 
     const property = await res.json();
+    
     return property;
   } catch (error) {
     console.log(error);
@@ -29,8 +30,6 @@ export async function getProperty(id) {
 export async function addProperty(data) {
   try {
     console.log(data);
-
-
 
     if (data.images.length > 0) {
       const formData = new FormData();
