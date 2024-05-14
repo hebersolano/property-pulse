@@ -11,15 +11,15 @@ export const metadata = {
 
 function MainLayout({ children }) {
   return (
-    <AuthProvider>
-      <html lang="en">
-        <body className="">
+    <html lang="en">
+      <body className="">
+        <AuthProvider>
           <Navbar />
           <main>{children}</main>
           <Footer />
-        </body>
-      </html>
-    </AuthProvider>
+        </AuthProvider>
+      </body>
+    </html>
   );
 }
 
