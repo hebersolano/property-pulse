@@ -20,7 +20,7 @@ export async function getProperty(id) {
     if (!res.ok) throw new Error("Failed to fetch data");
 
     const property = await res.json();
-    
+
     return property;
   } catch (error) {
     console.log(error);
@@ -29,15 +29,15 @@ export async function getProperty(id) {
 
 export async function addProperty(data) {
   try {
-    console.log(data);
+    console.log("adding property:", data);
 
     if (data.images.length > 0) {
       const formData = new FormData();
-      for (const file of data.images) {
-        formData.append("images", file, file.name);
+      for (const image of data.images) {
+        formData.append("images", image, image.name);
       }
 
-      const file = await fetch(`${NEXT_API}/properties?type=file`, {
+      await fetch(`${NEXT_API}/properties?type=file`, {
         method: "POST",
         body: formData,
       });

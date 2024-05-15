@@ -6,6 +6,7 @@ function AuthProvider({ children, session }) {
 }
 
 AuthProvider.getInitialProps = async (context) => {
+  console.log("auth context:", context);
   const { ctx } = context;
   const session = await getSession(ctx);
 

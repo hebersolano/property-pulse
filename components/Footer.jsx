@@ -1,5 +1,6 @@
 import Image from "next/image";
 import logo from "@/assets/images/logo.png";
+import UploadFakeProperties from "@/config/services/UploadFakeProperties";
 
 function Footer() {
   return (
@@ -8,6 +9,7 @@ function Footer() {
         <div className="mb-4 md:mb-0">
           <Image src={logo} alt="Logo" className="h-8 w-auto" height={32} width={32} />
         </div>
+        <UploadFakeProperties />
         <div className="flex flex-wrap justify-center md:justify-start mb-4 md:mb-0">
           <ul className="flex space-x-4">
             <li>
