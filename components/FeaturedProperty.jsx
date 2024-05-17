@@ -9,7 +9,7 @@ function FeaturedProperty({ property }) {
   return (
     <div className="rounded-xl shadow-md relative bg-white flex flex-col md:flex-row">
       <Image
-        src={`/images/properties/${property.images[0]}`}
+        src={property.images[0]}
         alt={`${property.name} photo`}
         className="object-cover rounded-t-xl md:rounded-tr-none md:rounded-l-xl w-full md:w-2/5"
         sizes="(min-width: 1024px) 29vw, (min-width: 768px) 44vw, 89vw"

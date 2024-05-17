@@ -37,14 +37,13 @@ export async function POST(req) {
       global.imagesUrl = [];
       const data = await req.formData();
       const images = data.getAll("images");
-      console.log(images);
 
       let arrayImgPromises = [];
       for (const image of images) {
         const imageBuffer = await image.arrayBuffer();
         const buffer = new Uint8Array(imageBuffer);
 
-        arrayImgPromises.push(uploadImgBufferCloudinary(buffer, image.name));
+        arrayImgPromises.push(uploadImgBufferCloudinary(buffer));
       }
       global.imagesUrl = await Promise.all(arrayImgPromises);
     }
@@ -72,21 +71,25 @@ export async function DELETE(req) {
   try {
     const session = await getUserSession();
     if (!session?.user) return new Response("unauthorized", { status: 401 });
+
     await Property.deleteMany({});
 
     const properties = await getFakeProperties();
     for (const property of properties) {
       let arrayImgPromises = [];
-      for (const buffer of property.images) {
-        arrayImgPromises.push(uploadImgBufferCloudinary(buffer));
+
+      for (const imageBuffer of property.images) {
+        arrayImgPromises.push(uploadImgBufferCloudinary(imageBuffer));
       }
+
       const arrayUrlImages = await Promise.all(arrayImgPromises);
       property.images = arrayUrlImages;
       property.owner = session.user.id;
+
       const newProperty = new Property(property);
       await newProperty.save();
     }
-    // global.imagesUrl = [];
+
     return new Response("ok boomer", { status: 201 });
   } catch (error) {
     console.error(error);

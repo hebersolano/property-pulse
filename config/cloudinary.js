@@ -9,16 +9,13 @@ cloudinary.config({
 function uploadImgBufferCloudinary(imgBuffer) {
   return new Promise((resolve, reject) => {
     cloudinary.uploader
-      .upload_stream(
-        { folder: "property-pulse", use_filename: true, unique_filename: false, overwrite: false },
-        function (error, result) {
-          if (error) {
-            reject(error);
-            return;
-          }
-          resolve(result.secure_url);
+      .upload_stream({ folder: "property-pulse" }, function (error, result) {
+        if (error) {
+          reject(error);
+          return;
         }
-      )
+        resolve(result.secure_url);
+      })
       .end(imgBuffer);
   });
 }
