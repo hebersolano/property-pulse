@@ -77,20 +77,19 @@ export async function DELETE(req) {
     const properties = await getFakeProperties();
     for (const property of properties) {
       let arrayImgPromises = [];
-      for (const image of property.images) {
-        const imageBuffer = await image.arrayBuffer();
-        const buffer = new Uint8Array(imageBuffer);
-
-        arrayImgPromises.push(uploadImgBufferCloudinary(buffer, image.name));
+      for (const buffer of property.images) {
+        arrayImgPromises.push(uploadImgBufferCloudinary(buffer));
       }
       const arrayUrlImages = await Promise.all(arrayImgPromises);
       property.images = arrayUrlImages;
+      property.owner = session.user.id;
       const newProperty = new Property(property);
-      await property.save();
+      await newProperty.save();
     }
     // global.imagesUrl = [];
     return new Response("ok boomer", { status: 201 });
   } catch (error) {
     console.error(error);
+    return new Response(JSON.stringify("Test data error"), { status: 500 });
   }
 }

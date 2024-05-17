@@ -6,11 +6,11 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
-function uploadImgBufferCloudinary(imgBuffer, imgName) {
+function uploadImgBufferCloudinary(imgBuffer) {
   return new Promise((resolve, reject) => {
     cloudinary.uploader
       .upload_stream(
-        { folder: "property-pulse", display_name: String(imgName).split(".")[0] },
+        { folder: "property-pulse", use_filename: true, unique_filename: false, overwrite: false },
         function (error, result) {
           if (error) {
             reject(error);
@@ -20,6 +20,12 @@ function uploadImgBufferCloudinary(imgBuffer, imgName) {
         }
       )
       .end(imgBuffer);
+  });
+}
+
+function uploadImgBase64Cloudinary(imageBase64) {
+  return cloudinary.uploader.upload(`data:image/png;base64,${imageBase64}`, {
+    folder: "property-pulse",
   });
 }
 
