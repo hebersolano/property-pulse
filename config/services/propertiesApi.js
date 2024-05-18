@@ -51,3 +51,16 @@ export async function addProperty(data) {
     console.log(error);
   }
 }
+
+export async function getUserProperties(userId) {
+  try {
+    const res = await fetch(`${NEXT_API}/properties/user/${userId}`, { cache: "no-cache" });
+    if (!res.ok) throw new Error("Failed to fetch data");
+
+    const properties = await res.json();
+
+    return properties;
+  } catch (error) {
+    console.log(error);
+  }
+}
