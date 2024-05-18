@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -19,16 +19,6 @@ function Navbar() {
   const profileImg = session?.user?.image;
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
-  // const [providers, setProviders] = useState();
-
-  // useEffect(function () {
-  //   async function setAuthProviders() {
-  //     const res = await getProviders();
-  //     setProviders(res);
-  //   }
-
-  //   setAuthProviders();
-  // }, []);
 
   return (
     <nav className="bg-blue-700 border-b border-blue-500">

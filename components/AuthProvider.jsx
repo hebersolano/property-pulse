@@ -1,18 +1,22 @@
 "use client";
 import { SessionProvider, getSession } from "next-auth/react";
 
-function AuthProvider({ children, session }) {
-  return <SessionProvider session={session}>{children}</SessionProvider>;
+function AuthContext({ children, session }) {
+  return (
+    <SessionProvider session={session} refetchOnWindowFocus={true}>
+      {children}
+    </SessionProvider>
+  );
 }
 
-AuthProvider.getInitialProps = async (context) => {
-  console.log("auth context:", context);
-  const { ctx } = context;
-  const session = await getSession(ctx);
+// AuthContext.getInitialProps = async (context) => {
+//   const { ctx } = context;
+//   const session = await getSession(ctx);
 
-  return {
-    session,
-  };
-};
+//   return {
+//     session,
+//   };
+// };
 
-export default AuthProvider;
+// AuthContext
+export default AuthContext;

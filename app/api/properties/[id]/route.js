@@ -5,7 +5,12 @@ import Property from "@/config/models/Property";
 export async function GET(req, { params }) {
   await dbConnect();
   try {
-    const property = await Property.findById(params.id);
+    if (!params.id) return new Response("Error", { status: 404 });
+
+    const property = await Property.findById(params.id).catch((error) => {
+      console.log(error.message);
+      return null;
+    });
 
     if (!property) return new Response("Property Not Found", { status: 404 });
     return new Response(JSON.stringify(property), { status: 200 });
