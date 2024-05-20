@@ -8,7 +8,7 @@ export async function getFakeProperties() {
       property.owner = "663994b8d0e3688ceda7d45f";
       let imgList = [];
       for (const imgName of property.images) {
-        imgList.unshift(readImage(imgName));
+        imgList.unshift({ buffer: readImage(imgName), name: imgName });
       }
       property.images = imgList;
     }

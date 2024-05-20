@@ -6,10 +6,10 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
-function uploadImgBufferCloudinary(imgBuffer) {
+function uploadImgBufferCloudinary(imgBuffer, imgName) {
   return new Promise((resolve, reject) => {
     cloudinary.uploader
-      .upload_stream({ folder: "property-pulse" }, function (error, result) {
+      .upload_stream({ folder: "property-pulse", public_id: imgName }, function (error, result) {
         if (error) {
           reject(error);
           return;

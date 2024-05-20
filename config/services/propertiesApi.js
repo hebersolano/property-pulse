@@ -1,3 +1,5 @@
+import toast from "react-hot-toast";
+
 const NEXT_API = process.env.NEXT_PUBLIC_API || null;
 
 export async function fetchProperties() {
@@ -71,6 +73,7 @@ export async function deleteProperty(propertyId) {
     const res = await fetch(`${NEXT_API}/properties/${propertyId}`, { method: "DELETE" });
     console.log(res);
     if (!res.ok) throw new Error("Failed to fetch data");
+    toast.success("Successful delete");
   } catch (error) {
     console.log(error);
   }

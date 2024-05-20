@@ -1,10 +1,13 @@
 "use client";
+import { useRouter } from "next/navigation";
 
 function UploadFakeProperties() {
+  const router = useRouter();
   function handler(e) {
-    fetch(`${process.env.NEXT_PUBLIC_API}/properties`, { method: "DELETE" }).then((res) =>
-      console.log(res)
-    );
+    fetch(`${process.env.NEXT_PUBLIC_API}/properties`, { method: "DELETE" }).then((res) => {
+      console.log(res);
+      router.refresh();
+    });
   }
 
   return (
