@@ -34,7 +34,8 @@ async function dbConnect(dbUrl) {
         return mongoose;
       })
       .catch((e) => {
-        dbConnect(process.env.MONGODB_LOCAL);
+        cached.promise = null;
+        dbConnect(process.env.MONGODB_LOCAL); // backup DB connection
       });
   }
 
@@ -42,8 +43,8 @@ async function dbConnect(dbUrl) {
     cached.conn = await cached.promise;
   } catch (error) {
     cached.promise = null;
-    dbConnect(process.env.MONGODB_LOCAL);
-    // throw error;
+    // dbConnect(process.env.MONGODB_LOCAL);
+    throw error;
   }
   return cached.conn;
 }

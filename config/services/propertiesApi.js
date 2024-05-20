@@ -17,13 +17,14 @@ export async function fetchProperties() {
 export async function getProperty(id) {
   try {
     const res = await fetch(`${NEXT_API}/properties/${id}`, { cache: "no-cache" });
-    if (!res.ok) throw new Error("Failed to fetch data");
+    if (!res.ok) return undefined;
 
     const property = await res.json();
 
     return property;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 }
 
@@ -55,11 +56,21 @@ export async function addProperty(data) {
 export async function getUserProperties(userId) {
   try {
     const res = await fetch(`${NEXT_API}/properties/user/${userId}`, { cache: "no-cache" });
-    if (!res.ok) throw new Error("Failed to fetch data");
+    if (!res.ok) return undefined;
 
     const properties = await res.json();
 
     return properties;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteProperty(propertyId) {
+  try {
+    const res = await fetch(`${NEXT_API}/properties/${propertyId}`, { method: "DELETE" });
+    console.log(res);
+    if (!res.ok) throw new Error("Failed to fetch data");
   } catch (error) {
     console.log(error);
   }

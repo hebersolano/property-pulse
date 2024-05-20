@@ -1,6 +1,10 @@
+"use client";
+import { deleteProperty } from "@/config/services/propertiesApi";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 function UserListing({ property }) {
+  const router = useRouter();
   const image = property.images[0];
   return (
     <div className="mb-10">
@@ -26,6 +30,10 @@ function UserListing({ property }) {
           Edit
         </a>
         <button
+          onClick={() => {
+            deleteProperty(property._id);
+            router.refresh();
+          }}
           className="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
           type="button"
         >

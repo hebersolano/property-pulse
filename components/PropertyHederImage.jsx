@@ -3,17 +3,13 @@ import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 
 function PropertyHederImage({ image }) {
-  let imgSrc;
-  if (String(image).includes("res.cloudinary.com")) imgSrc = image;
-  else imgSrc = `/images/properties/${image}`;
-
   return (
     <>
       <section>
         <div className=" m-auto">
           <div className="grid grid-cols-1 overflow-hidden">
             <Image
-              src={imgSrc}
+              src={image}
               alt=""
               className="object-cover h-[400px] w-full"
               width={16}

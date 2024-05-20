@@ -11,7 +11,6 @@ export async function GET(req, { params }) {
       return null;
     });
 
-    console.log("mongoose user res:", properties);
     if (!properties) return new Response("Properties Not Found", { status: 404 });
     return new Response(JSON.stringify(properties), { status: 200 });
   } catch (error) {

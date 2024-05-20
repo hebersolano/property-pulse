@@ -1,34 +1,15 @@
-"use client";
-
 import LoadingPage from "@/app/loading";
 import ContactForm from "@/components/ContactForm";
 import PropertyDetails from "@/components/Navbar/PropertyDetails";
 import PropertyHederImage from "@/components/PropertyHederImage";
+import properties from "@/properties.json";
+
 import { getProperty } from "@/config/services/propertiesApi";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { notFound } from "next/navigation";
 
-function PropertyPage() {
-  const [property, setProperty] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const { id } = useParams();
-
-  useEffect(
-    function () {
-      getProperty(id)
-        .then((res) => setProperty(res))
-        .catch((err) => console.log(err))
-        .finally(() => setIsLoading(false));
-    },
-    [id]
-  );
-
-  if (isLoading) return <LoadingPage />;
-
-  if (!property && !isLoading)
-    return <h1 className="text-center text-xl2 font-bold mt-10">Property Not Found</h1>;
-
-  console.log(property);
+async function PropertyPage({ params }) {
+  const property = await getProperty(params.id);
+  if (!property) return notFound();
 
   return (
     <>

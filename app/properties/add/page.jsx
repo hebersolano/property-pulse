@@ -1,4 +1,3 @@
-import LoadingPage from "@/app/loading";
 import PropertyAddForm from "@/components/PropertyAddForm";
 
 function AddPropertyPage() {
