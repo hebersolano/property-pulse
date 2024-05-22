@@ -72,8 +72,9 @@ export async function deleteProperty(propertyId) {
   try {
     const res = await fetch(`${NEXT_API}/properties/${propertyId}`, { method: "DELETE" });
     console.log(res);
-    if (!res.ok) throw new Error("Failed to fetch data");
-    toast.success("Successful delete");
+    if (!res.ok) toast.error("Failed to delete property");
+
+    toast.success("Property deleted");
   } catch (error) {
     console.log(error);
   }

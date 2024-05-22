@@ -1,17 +1,19 @@
 "use client";
 import { useForm } from "react-hook-form";
 import FormRow from "./FormRow";
-import { addProperty } from "@/config/services/propertiesApi";
+import { addProperty, getProperty } from "@/config/services/propertiesApi";
 
 const requiredField = { required: "This field is required" };
 
-function PropertyAddForm() {
+function PropertyAddForm({ editMode = false, propertyId }) {
+  console.log("edit id", propertyId);
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm(editMode ? { defaultValues: getProperty.bind(null, propertyId) } : {});
 
   async function onSubmit(data) {
     await addProperty(data);
@@ -401,16 +403,18 @@ function PropertyAddForm() {
         />
       </FormRow>
 
-      <FormRow rowClass="mb-4" label="Images (Select up to 4 images)">
-        <input
-          type="file"
-          id="images"
-          {...register("images", { required: true })}
-          name="images"
-          accept="image/*"
-          multiple
-        />
-      </FormRow>
+      {!editMode && (
+        <FormRow rowClass="mb-4" label="Images (Select up to 4 images)">
+          <input
+            type="file"
+            id="images"
+            {...register("images", { required: true })}
+            name="images"
+            accept="image/*"
+            multiple
+          />
+        </FormRow>
+      )}
 
       <div className="flex gap-2 mt-3">
         <button

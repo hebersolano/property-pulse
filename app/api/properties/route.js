@@ -78,8 +78,8 @@ export async function DELETE(req) {
     for (const property of properties) {
       let arrayImgPromises = [];
 
-      for (const imageBuffer of property.images) {
-        arrayImgPromises.push(uploadImgBufferCloudinary(imageBuffer));
+      for (const image of property.images) {
+        arrayImgPromises.push(uploadImgBufferCloudinary(image.buffer, image.name));
       }
 
       const arrayUrlImages = await Promise.all(arrayImgPromises);
