@@ -55,6 +55,19 @@ export async function addProperty(data) {
   }
 }
 
+export async function editProperty(data) {
+  try {
+    console.log("editing property:", data);
+
+    await fetch(`${NEXT_API}/properties`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function getUserProperties(userId) {
   try {
     const res = await fetch(`${NEXT_API}/properties/user/${userId}`, { cache: "no-cache" });

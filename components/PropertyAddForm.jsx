@@ -1,7 +1,7 @@
 "use client";
 import { useForm } from "react-hook-form";
 import FormRow from "./FormRow";
-import { addProperty, getProperty } from "@/config/services/propertiesApi";
+import { addProperty, editProperty, getProperty } from "@/config/services/propertiesApi";
 
 const requiredField = { required: "This field is required" };
 
@@ -16,7 +16,9 @@ function PropertyAddForm({ editMode = false, propertyId }) {
   } = useForm(editMode ? { defaultValues: getProperty.bind(null, propertyId) } : {});
 
   async function onSubmit(data) {
-    await addProperty(data);
+    if (editMode) return await editProperty(data);
+
+    return await addProperty(data);
   }
 
   console.log(errors);

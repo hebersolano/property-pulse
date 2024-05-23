@@ -25,7 +25,6 @@ export async function POST(req) {
     await dbConnect();
     const session = await getUserSession();
 
-    console.log("session server:", session);
     if (!session?.user) return new Response("unauthorized", { status: 401 });
 
     const { searchParams } = new URL(req.url);
@@ -56,7 +55,6 @@ export async function POST(req) {
 
       const property = new Property(info);
       const res = await property.save();
-      console.log("cloud res new property: ", res);
       redirect(`/properties`);
     }
 
@@ -95,4 +93,19 @@ export async function DELETE(req) {
     console.error(error);
     return new Response(JSON.stringify("Test data error"), { status: 500 });
   }
+}
+
+export async function PUT(req) {
+  await dbConnect();
+  const session = await getUserSession();
+
+  if (!session?.user) return new Response("unauthorized", { status: 401 });
+
+  const data = await req.json();
+  const id = data._id;
+  delete data._id;
+  console.log("id put", id, "data put", data);
+
+  await Property.findByIdAndUpdate(id, data);
+  redirect(`/properties`);
 }
