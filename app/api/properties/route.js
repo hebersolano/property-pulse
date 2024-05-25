@@ -1,5 +1,3 @@
-import { redirect } from "next/dist/server/api-utils";
-
 import { uploadImgBufferCloudinary } from "@/config/cloudinary";
 import dbConnect from "@/config/dbConnect";
 import Property from "@/config/models/Property";
@@ -10,8 +8,8 @@ const NEXT_API = process.env.NEXT_PUBLIC_API || null;
 
 // GET /api/properties
 export async function GET() {
-  await dbConnect();
   try {
+    await dbConnect();
     const properties = await Property.find({});
     return new Response(JSON.stringify(properties), { status: 200 });
   } catch (error) {
@@ -45,6 +43,7 @@ export async function POST(req) {
         arrayImgPromises.push(uploadImgBufferCloudinary(buffer));
       }
       global.imagesUrl = await Promise.all(arrayImgPromises);
+      return new Response("ok", { status: 200 });
     }
 
     if (type === "json") {
@@ -55,10 +54,8 @@ export async function POST(req) {
 
       const property = new Property(info);
       const res = await property.save();
-      redirect(`/properties`);
+      return new Response(JSON.stringify(res), { status: 200 });
     }
-
-    // return new Response(JSON.stringify(info), { status: 200 });
   } catch (error) {
     console.log(error);
     return new Response(JSON.stringify("Something went wrong"), { status: 500 });
@@ -88,7 +85,7 @@ export async function DELETE(req) {
       await newProperty.save();
     }
 
-    return new Response("ok boomer", { status: 201 });
+    return new Response("Test properties created", { status: 201 });
   } catch (error) {
     console.error(error);
     return new Response(JSON.stringify("Test data error"), { status: 500 });
@@ -96,16 +93,22 @@ export async function DELETE(req) {
 }
 
 export async function PUT(req) {
-  await dbConnect();
-  const session = await getUserSession();
+  try {
+    await dbConnect();
+    const session = await getUserSession();
 
-  if (!session?.user) return new Response("unauthorized", { status: 401 });
+    if (!session?.user) return new Response("unauthorized", { status: 401 });
 
-  const data = await req.json();
-  const id = data._id;
-  delete data._id;
-  console.log("id put", id, "data put", data);
+    const data = await req.json();
+    const id = data._id;
+    delete data._id;
 
-  await Property.findByIdAndUpdate(id, data);
-  redirect(`/properties`);
+    const res = await Property.findByIdAndUpdate(id, data).where("owner").equals(session.user.id);
+
+    if (!res) return new Response("no property has been update", { status: 406 });
+    return new Response("ok", { status: 200 });
+  } catch (error) {
+    console.log(error);
+    return new Response("Something went wrong", { status: 500 });
+  }
 }

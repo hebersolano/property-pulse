@@ -1,7 +1,6 @@
 import { getUserProperties } from "@/config/services/propertiesApi";
 import UserListing from "./UserListing";
 import { notFound } from "next/navigation";
-import propers from "@/properties2.json";
 
 async function UserListings({ userId }) {
   const userProperties = await getUserProperties(userId);
@@ -14,11 +13,6 @@ async function UserListings({ userId }) {
       {userProperties.map((property) => (
         <UserListing key={property._id} property={property} />
       ))}
-
-      <div>
-        <p>fake</p>
-        <UserListing property={propers[0]} />
-      </div>
     </div>
   );
 }

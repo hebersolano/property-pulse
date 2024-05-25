@@ -1,12 +1,15 @@
 "use client";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+
 import FormRow from "./FormRow";
 import { addProperty, editProperty, getProperty } from "@/config/services/propertiesApi";
 
 const requiredField = { required: "This field is required" };
 
 function PropertyAddForm({ editMode = false, propertyId }) {
-  console.log("edit id", propertyId);
+  const router = useRouter();
 
   const {
     register,
@@ -16,9 +19,16 @@ function PropertyAddForm({ editMode = false, propertyId }) {
   } = useForm(editMode ? { defaultValues: getProperty.bind(null, propertyId) } : {});
 
   async function onSubmit(data) {
-    if (editMode) return await editProperty(data);
+    if (editMode) {
+      const res = await editProperty(data);
+      if (!res) return;
+      router.push(`/properties/${propertyId}`);
+      toast.success("Property updated");
+    }
 
-    return await addProperty(data);
+    const res = await addProperty(data);
+    console.log("res client:", res);
+    router.push(`/properties/${res._id}`);
   }
 
   console.log(errors);
@@ -424,7 +434,7 @@ function PropertyAddForm({ editMode = false, propertyId }) {
           type="submit"
           disabled={isSubmitting}
         >
-          Add Property
+          {editMode ? "Update Property" : "Add Property"}
         </button>
         <button
           onClick={() => reset()}

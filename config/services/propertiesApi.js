@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
 
 const NEXT_API = process.env.NEXT_PUBLIC_API || null;
@@ -33,6 +34,7 @@ export async function getProperty(id) {
 export async function addProperty(data) {
   try {
     console.log("adding property:", data);
+    let imagesPostRes;
 
     if (data.images.length > 0) {
       const formData = new FormData();
@@ -40,18 +42,23 @@ export async function addProperty(data) {
         formData.append("images", image, image.name);
       }
 
-      await fetch(`${NEXT_API}/properties?type=file`, {
+      imagesPostRes = await fetch(`${NEXT_API}/properties?type=file`, {
         method: "POST",
         body: formData,
       });
     }
 
-    await fetch(`${NEXT_API}/properties?type=json`, {
+    let dataPostRes = await fetch(`${NEXT_API}/properties?type=json`, {
       method: "POST",
       body: JSON.stringify(data),
     });
+
+    if (!imagesPostRes.ok && !dataPostRes.ok) toast.error("Error creating new property");
+    toast.success("Property created");
+    return await dataPostRes.json();
   } catch (error) {
     console.log(error);
+    return false;
   }
 }
 
@@ -59,10 +66,13 @@ export async function editProperty(data) {
   try {
     console.log("editing property:", data);
 
-    await fetch(`${NEXT_API}/properties`, {
+    const res = await fetch(`${NEXT_API}/properties`, {
       method: "PUT",
       body: JSON.stringify(data),
     });
+
+    if (!res.ok) toast.error("Error updating property");
+    return true;
   } catch (error) {
     console.log(error);
   }
