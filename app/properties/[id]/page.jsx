@@ -1,6 +1,6 @@
 import LoadingPage from "@/app/loading";
 import ContactForm from "@/components/ContactForm";
-import PropertyDetails from "@/components/Navbar/PropertyDetails";
+import PropertyDetails from "@/components/PropertyDetails";
 import PropertyHederImage from "@/components/PropertyHederImage";
 import properties from "@/properties.json";
 
