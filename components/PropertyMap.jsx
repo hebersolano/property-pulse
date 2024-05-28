@@ -3,13 +3,14 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { setDefaults, fromAddress } from "react-geocode";
 import { useEffect, useState } from "react";
 import MiniSpinner from "./MiniSpinner";
-import mapboxgl from "mapbox-gl";
-import Map from "react-map-gl";
+import Map, { Marker } from "react-map-gl";
+import Image from "next/image";
+import pin from "@/assets/images/pin.svg";
 
 function PropertyMap({ property }) {
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [viewport, setViewport] = useState({
     latitude: 0,
     longitude: 0,
@@ -24,29 +25,27 @@ function PropertyMap({ property }) {
     region: "us", // Default region for responses.
   });
 
-  const { street, city, state, zipcode } = property.location;
-
-  useEffect(
-    function () {
-      async function fetchCoords() {
-        try {
-          setIsLoading(true);
-          const res = await fromAddress(
-            `${property.location.street} ${property.location.city} ${property.location.state} ${property.location.zipcode}`
-          );
-          const { lat, lng } = res.results[0].geometry.location;
-          setLat(lat);
-          setLng(lng);
-          setViewport({ ...viewport, latitude: lat, longitude: lng });
-          setIsLoading(false);
-        } catch (error) {
-          console.error("fetchCoords error:", error);
-        }
+  useEffect(function () {
+    async function fetchCoords() {
+      try {
+        setIsLoading(true);
+        const res = await fromAddress(
+          `${property.location.street} ${property.location.city} ${property.location.state} ${property.location.zipcode}`
+        );
+        console.log(res);
+        const { lat, lng } = res.results[0].geometry.location;
+        setLat(lat);
+        setLng(lng);
+        setViewport((view) => {
+          return { ...view, latitude: lat, longitude: lng };
+        });
+        setIsLoading(false);
+      } catch (error) {
+        console.error("fetchCoords error:", error);
       }
-      fetchCoords().catch((e) => console.log(e));
-    },
-    [viewport, property.location]
-  );
+    }
+    if (!lat && !lng) fetchCoords().catch((e) => console.log(e));
+  }, []);
 
   if (isLoading)
     return (
@@ -55,21 +54,25 @@ function PropertyMap({ property }) {
       </div>
     );
 
-  console.log("data: ", lat, lng, viewport);
+  // console.log("data: ", lat, lng, viewport);
 
-  if (!isLoading)
+  if (!isLoading && lat && lng)
     return (
       <Map
-      // mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
-      // mapLib={mapboxgl}
-      // initialViewState={{
-      //   latitude: lng,
-      //   longitude: lat,
-      //   zoom: 15,
-      // }}
-      // style={{ width: "100%", height: 500 }}
-      // mapStyle="mapbox://styles/mapbox/streets-v12"
-      />
+        mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
+        mapLib={import("mapbox-gl")}
+        initialViewState={{
+          latitude: lat,
+          longitude: lng,
+          zoom: 15,
+        }}
+        style={{ width: "100%", height: 500 }}
+        mapStyle="mapbox://styles/mapbox/streets-v9"
+      >
+        <Marker longitude={lng} latitude={lat} anchor="bottom">
+          <Image src={pin} alt="location" width={40} height={40} />
+        </Marker>
+      </Map>
     );
 }
 
