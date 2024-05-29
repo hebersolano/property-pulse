@@ -9,10 +9,12 @@ const UserSchema = new Schema(
     },
     username: { type: String, required: [true, "Username is required"] },
     image: { type: String },
-    bookmarks: {
-      type: Schema.Types.ObjectId,
-      ref: "Property", // reference to the Model
-    },
+    bookmarks: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Property", // reference to the Model
+      },
+    ],
   },
   { timestamps: true }
 );

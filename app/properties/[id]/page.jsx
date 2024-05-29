@@ -1,14 +1,15 @@
-import LoadingPage from "@/app/loading";
+import BookmarkButton from "@/components/BookmarkButton";
 import ContactForm from "@/components/ContactForm";
 import PropertyDetails from "@/components/PropertyDetails";
 import PropertyHederImage from "@/components/PropertyHederImage";
-import properties from "@/properties.json";
+import ShareButton from "@/components/ShareButton";
 
 import { getProperty } from "@/config/services/propertiesApi";
 import { notFound } from "next/navigation";
 
 async function PropertyPage({ params }) {
   const property = await getProperty(params.id);
+
   if (!property) return notFound();
 
   return (
@@ -21,14 +22,8 @@ async function PropertyPage({ params }) {
             <PropertyDetails property={property} />
 
             <aside className="space-y-4">
-              <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold w-full py-2 px-4 rounded-full flex items-center justify-center">
-                <i className="fas fa-bookmark mr-2"></i> Bookmark Property
-              </button>
-
-              <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold w-full py-2 px-4 rounded-full flex items-center justify-center">
-                <i className="fas fa-share mr-2"></i> Share Property
-              </button>
-
+              <BookmarkButton property={property} />
+              <ShareButton />
               <ContactForm />
             </aside>
           </div>

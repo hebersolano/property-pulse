@@ -42,6 +42,9 @@ const authOptions = {
       const user = await User.findOne({ email: session.user.email });
       // 2. assign the user id to the session
       session.user.id = user._id.toString();
+      if (user?.bookmarks) session.user.bookmarks = user.bookmarks;
+      else session.user.bookmarks = [];
+      console.log(session);
       // 3. return session
       return session;
     },

@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
 
 const NEXT_API = process.env.NEXT_PUBLIC_API || null;
@@ -100,5 +99,33 @@ export async function deleteProperty(propertyId) {
     toast.success("Property deleted");
   } catch (error) {
     console.log(error);
+  }
+}
+
+export async function getIsPropertyBookmarked(id) {
+  try {
+    const res = await fetch(`${NEXT_API}/properties/bookmarks/${id}`);
+    if (!res.ok) return null;
+
+    const property = await res.json();
+
+    return property;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function addPropertyToBookmarks(id) {
+  try {
+    const res = await fetch(`${NEXT_API}/properties/bookmarks/${id}`, { method: "PUT" });
+    if (!res.ok) return null;
+
+    const property = await res.json();
+
+    return property;
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 }
