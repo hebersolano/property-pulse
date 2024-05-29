@@ -8,6 +8,7 @@ import Image from "next/image";
 import pin from "@/assets/images/pin.svg";
 
 function PropertyMap({ property }) {
+  const [error, setError] = useState(null);
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,10 +30,17 @@ function PropertyMap({ property }) {
     async function fetchCoords() {
       try {
         setIsLoading(true);
+
         const res = await fromAddress(
           `${property.location.street} ${property.location.city} ${property.location.state} ${property.location.zipcode}`
-        );
-        console.log(res);
+        ).catch((e) => {
+          setError("Error geocoding address");
+          setIsLoading(false);
+          return;
+        });
+
+        if (!res) return;
+
         const { lat, lng } = res.results[0].geometry.location;
         setLat(lat);
         setLng(lng);
@@ -42,9 +50,10 @@ function PropertyMap({ property }) {
         setIsLoading(false);
       } catch (error) {
         console.error("fetchCoords error:", error);
+        setError(error);
       }
     }
-    if (!lat && !lng) fetchCoords().catch((e) => console.log(e));
+    if (!lat && !lng) fetchCoords();
   }, []);
 
   if (isLoading)
@@ -54,7 +63,7 @@ function PropertyMap({ property }) {
       </div>
     );
 
-  // console.log("data: ", lat, lng, viewport);
+  if (error) return <div className="text-center">Location No Found On Map</div>;
 
   if (!isLoading && lat && lng)
     return (
