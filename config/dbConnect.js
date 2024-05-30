@@ -27,16 +27,14 @@ async function dbConnect(dbUrl) {
       bufferCommands: false,
     };
     console.log("Connection to:", DBurl.hostname);
-    cached.promise = mongoose
-      .connect(dbUrl, opts)
-      .then((mongoose) => {
-        console.log("DB connection started");
-        return mongoose;
-      })
-      .catch((e) => {
-        cached.promise = null;
-        dbConnect(process.env.MONGODB_LOCAL); // backup DB connection
-      });
+    cached.promise = mongoose.connect(dbUrl, opts).then((mongoose) => {
+      console.log("DB connection started");
+      return mongoose;
+    });
+    // .catch((e) => {
+    //   cached.promise = null;
+    //   dbConnect(process.env.MONGODB_LOCAL); // backup DB connection
+    // });
   }
 
   try {

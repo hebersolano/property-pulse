@@ -35,8 +35,9 @@ const authOptions = {
       return true;
     },
     // Modifies the session object
-    async session({ session }) {
+    async session({ session, trigger, newSession }) {
       await dbConnect();
+      console.log("SESSION CALLBACK", trigger, newSession);
       // console.log("Session authOpts:", session);
       // 1. ge user from database
       const user = await User.findOne({ email: session.user.email });
