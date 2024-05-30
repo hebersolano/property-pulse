@@ -22,7 +22,7 @@ async function PropertyPage({ params }) {
             <PropertyDetails property={property} />
 
             <aside className="space-y-4">
-              <BookmarkButton property={property} />
+              <BookmarkButton propertyId={property._id} />
               <ShareButton />
               <ContactForm />
             </aside>
