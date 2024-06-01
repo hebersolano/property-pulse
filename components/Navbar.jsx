@@ -10,7 +10,7 @@ import NotificationsMenu from "./Navbar/NotificationsMenu";
 import LogInButton from "./Navbar/LogInButton";
 import NavLink from "./Navbar/NavLink";
 
-import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import MiniSpinner from "./MiniSpinner";
 
 function Navbar() {

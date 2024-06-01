@@ -1,15 +1,11 @@
 "use client";
 
 import { addPropertyToBookmarks } from "@/config/services/propertiesApi";
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { signIn, useSession } from "next-auth/react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { twJoin } from "tailwind-merge";
-
-function checkIsBookmarked(session, propertyId) {
-  return Boolean(session?.user?.bookmarks?.includes(propertyId));
-}
 
 function BookmarkButton({ propertyId }) {
   const { data: session, status, update } = useSession();
@@ -25,8 +21,12 @@ function BookmarkButton({ propertyId }) {
       if (res) {
         update();
         setIsBookmarked((boo) => !boo);
-        toast.success("done");
+        const msj = isBookmarked ? "Bookmark removed" : "Property bookmarked";
+        toast.success(msj);
       }
+    } else {
+      toast.error("You need to login to bookmark a property");
+      signIn("google");
     }
   }
 
@@ -35,13 +35,12 @@ function BookmarkButton({ propertyId }) {
     "text-white font-bold w-full py-2 px-4 rounded-full flex items-center justify-center"
   );
 
-  if (status === "authenticated")
-    return (
-      <button onClick={handleClick} className={twStyle}>
-        {isBookmarked ? <FaBookmark className="mr-2" /> : <FaRegBookmark className="mr-2" />}
-        {isBookmarked ? "Remove Bookmark" : "Bookmark Property"}
-      </button>
-    );
+  return (
+    <button onClick={handleClick} className={twStyle}>
+      {isBookmarked ? <FaBookmark className="mr-2" /> : <FaRegBookmark className="mr-2" />}
+      {isBookmarked ? "Remove Bookmark" : "Bookmark Property"}
+    </button>
+  );
 }
 
 export default BookmarkButton;
