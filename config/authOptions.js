@@ -15,6 +15,9 @@ const authOptions = {
           response_type: "code",
         },
       },
+      httpOptions: {
+        timeout: 6000,
+      },
     }),
   ],
   callbacks: {
@@ -35,17 +38,16 @@ const authOptions = {
       return true;
     },
     // Modifies the session object
-    async session({ session, trigger, newSession }) {
+    async session({ session }) {
       await dbConnect();
-      console.log("SESSION CALLBACK", trigger, newSession);
       // console.log("Session authOpts:", session);
       // 1. ge user from database
       const user = await User.findOne({ email: session.user.email });
       // 2. assign the user id to the session
       session.user.id = user._id.toString();
-      if (user?.bookmarks) session.user.bookmarks = user.bookmarks;
+      if (user?.bookmarks.length)
+        session.user.bookmarks = user.bookmarks.map((bookmark) => bookmark.toString());
       else session.user.bookmarks = [];
-      console.log(session);
       // 3. return session
       return session;
     },

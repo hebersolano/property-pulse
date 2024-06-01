@@ -119,10 +119,7 @@ export async function getIsPropertyBookmarked(id) {
 export async function addPropertyToBookmarks(id) {
   try {
     const res = await fetch(`${NEXT_API}/properties/bookmarks?propertyId=${id}`, { method: "PUT" });
-    if (!res.ok) return null;
-
-    const bookmarks = await res.json();
-
+    if (!res.ok) return false;
     return true;
   } catch (error) {
     console.log(error);

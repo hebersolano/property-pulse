@@ -34,6 +34,7 @@ function PropertyMap({ property }) {
         const res = await fromAddress(
           `${property.location.street} ${property.location.city} ${property.location.state} ${property.location.zipcode}`
         ).catch((e) => {
+          console.log(e);
           setError("Error geocoding address");
           setIsLoading(false);
           return;
@@ -49,8 +50,9 @@ function PropertyMap({ property }) {
         });
         setIsLoading(false);
       } catch (error) {
-        console.error("fetchCoords error:", error);
         setError(error);
+        setIsLoading(false);
+        console.error("fetchCoords error:", error);
       }
     }
     if (!lat && !lng) fetchCoords();
