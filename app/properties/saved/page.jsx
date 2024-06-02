@@ -1,7 +1,5 @@
 import PropertyCard from "@/components/PropertyCard";
-import { getUserBookmarks } from "@/config/services/propertiesApi";
-import getUserSession from "@/config/userSessionServer";
-import { headers } from "next/headers";
+import { GET as getApiUserBookmarks } from "@/app/api/properties/bookmarks/route";
 
 async function PropertiesSavedPage() {
   const properties = await getUserBookmarks();
@@ -22,6 +20,18 @@ async function PropertiesSavedPage() {
       </div>
     </section>
   );
+}
+
+async function getUserBookmarks() {
+  try {
+    const res = await getApiUserBookmarks();
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 }
 
 export default PropertiesSavedPage;

@@ -1,6 +1,6 @@
 "use client";
 
-import { addPropertyToBookmarks } from "@/config/services/propertiesApi";
+import { addPropertyToBookmarks, checkPropertyIsBookmarked } from "@/config/services/propertiesApi";
 import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -12,6 +12,8 @@ function BookmarkButton({ propertyId }) {
   const [isBookmarked, setIsBookmarked] = useState(() =>
     Boolean(session?.user?.bookmarks?.includes(propertyId))
   );
+
+  console.log("is book", isBookmarked);
 
   // 3 add property to bookmarks
   async function handleClick() {
