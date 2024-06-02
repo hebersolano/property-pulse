@@ -1,4 +1,6 @@
+import { headers } from "next/headers";
 import toast from "react-hot-toast";
+import { GET as getApiUserBookmarks } from "@/app/api/properties/bookmarks/route";
 
 const NEXT_API = process.env.NEXT_PUBLIC_API || null;
 
@@ -102,25 +104,23 @@ export async function deleteProperty(propertyId) {
   }
 }
 
-export async function getIsPropertyBookmarked(id) {
+export async function addPropertyToBookmarks(id) {
   try {
-    const res = await fetch(`${NEXT_API}/properties/bookmarks/${id}`);
-    if (!res.ok) return null;
-
-    const property = await res.json();
-
-    return property;
+    const res = await fetch(`${NEXT_API}/properties/bookmarks?propertyId=${id}`, { method: "PUT" });
+    if (!res.ok) return false;
+    return true;
   } catch (error) {
     console.log(error);
     throw error;
   }
 }
 
-export async function addPropertyToBookmarks(id) {
+export async function getUserBookmarks() {
   try {
-    const res = await fetch(`${NEXT_API}/properties/bookmarks?propertyId=${id}`, { method: "PUT" });
-    if (!res.ok) return false;
-    return true;
+    const res = await getApiUserBookmarks();
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data;
   } catch (error) {
     console.log(error);
     throw error;

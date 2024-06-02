@@ -1,16 +1,37 @@
+import { authOptions } from "@/config/authOptions";
 import dbConnect from "@/config/dbConnect";
 import Property from "@/config/models/Property";
 import User from "@/config/models/User";
 import getUserSession from "@/config/userSessionServer";
 import { ObjectId } from "mongodb";
+import { getServerSession } from "next-auth";
+import { headers } from "next/headers";
 
-// export const dynamic = "force-dynamic"; // route segment config Next-js
+export const dynamic = "force-dynamic"; // route segment config Next-js
+
+// get user bookmarks
+export async function GET() {
+  try {
+    dbConnect();
+    const session = await getUserSession();
+    if (!session?.user) return new Response("unauthorized", { status: 401 });
+
+    const res = await User.findOne({ email: session.user.email }, "bookmarks")
+      .populate("bookmarks")
+      .catch((e) => console.log(e));
+    return new Response(JSON.stringify(res.bookmarks), { status: 200 });
+  } catch (error) {
+    console.error("Server Error: error bookmarks", error);
+    return new Response("Server Error", { status: 500 });
+  }
+}
 
 // add property to bookmarks
 export async function PUT(req) {
   try {
     dbConnect();
     const session = await getUserSession();
+    console.log(session);
     if (!session?.user) return new Response("unauthorized", { status: 401 });
 
     const { searchParams } = new URL(req.url);
