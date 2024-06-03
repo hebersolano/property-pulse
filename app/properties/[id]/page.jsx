@@ -23,7 +23,7 @@ async function PropertyPage({ params }) {
 
             <aside className="space-y-4">
               <BookmarkButton propertyId={property._id} />
-              <ShareButton />
+              <ShareButton property={property} />
               <ContactForm />
             </aside>
           </div>

@@ -13,8 +13,6 @@ function BookmarkButton({ propertyId }) {
     Boolean(session?.user?.bookmarks?.includes(propertyId))
   );
 
-  console.log("is book", isBookmarked);
-
   // 3 add property to bookmarks
   async function handleClick() {
     if (status === "authenticated") {
