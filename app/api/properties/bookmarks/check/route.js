@@ -4,7 +4,6 @@ import { ObjectId } from "mongodb";
 
 export async function GET(req) {
   try {
-    dbConnect();
     const session = await getUserSession();
     if (!session?.user) return new Response("unauthorized", { status: 401 });
 

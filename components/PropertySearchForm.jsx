@@ -1,12 +1,11 @@
 import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
 
-function PropertySearchForm() {
+function PropertySearchForm({ searchParams = { location: "", type: "All" } }) {
   async function handleAction(formData) {
     "use server";
     const location = formData.get("location");
     const propertyType = formData.get("property-type");
-    console.log("ACTION RESULT", location, propertyType);
     if (!location && propertyType === "All") redirect("/properties");
     const locationQuery = location ? `&location=${location}` : "";
     redirect(`/properties/search?type=${propertyType + locationQuery}`);
@@ -25,6 +24,7 @@ function PropertySearchForm() {
           type="text"
           id="location"
           name="location"
+          defaultValue={searchParams.location}
           placeholder="Enter Location (City, State, Zip, etc"
           className="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-500"
         />
@@ -36,7 +36,7 @@ function PropertySearchForm() {
         <select
           id="property-type"
           name="property-type"
-          defaultValue="All"
+          defaultValue={searchParams.type}
           className="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-500"
         >
           <option value="All">All</option>

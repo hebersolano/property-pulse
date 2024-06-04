@@ -2,10 +2,10 @@ import dbConnect from "@/config/dbConnect";
 import Property from "@/config/models/Property";
 
 export async function GET(req, { params }) {
-  await dbConnect();
   try {
     if (!params.userId) return new Response("Error", { status: 404 });
 
+    await dbConnect();
     const properties = await Property.find({ owner: params.userId }).catch((error) => {
       console.log(error.message);
       return null;

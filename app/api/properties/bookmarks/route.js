@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic"; // route segment config Next-js
 // get user bookmarks
 export async function GET(req) {
   try {
-    dbConnect();
+    await dbConnect();
     const session = await getUserSession();
     if (!session?.user) return new Response("unauthorized", { status: 401 });
 
@@ -27,7 +27,6 @@ export async function GET(req) {
 // add property to bookmarks
 export async function POST(req) {
   try {
-    dbConnect();
     const session = await getUserSession();
     console.log(session);
     if (!session?.user) return new Response("unauthorized", { status: 401 });
@@ -39,6 +38,7 @@ export async function POST(req) {
     if (!ObjectId.isValid(propertyId))
       return new Response("Bad Request: invalid property id", { status: 400 });
 
+    await dbConnect();
     const propertyExists = await Property.exists({ _id: propertyId })
       .then(() => true)
       .catch(() => false);

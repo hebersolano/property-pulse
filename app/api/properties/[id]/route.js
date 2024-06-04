@@ -23,7 +23,6 @@ export async function GET(req, { params }) {
 }
 
 export async function DELETE(req, { params }) {
-  dbConnect();
   try {
     const session = await getServerSession(authOptions);
     if (!session) return new Response("unauthorized", { status: 401 });
@@ -32,6 +31,7 @@ export async function DELETE(req, { params }) {
 
     console.log("session delete", session);
 
+    await dbConnect();
     const res = await Property.findByIdAndDelete(params.id).where("owner").equals(session.user.id);
     if (!res) return new Response("no property has been delete", { status: 406 });
     console.log("res delete", res);
