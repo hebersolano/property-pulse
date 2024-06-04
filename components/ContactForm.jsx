@@ -1,53 +1,73 @@
-function ContactForm() {
+"use client";
+
+import { useForm } from "react-hook-form";
+import FormRow from "./FormRow";
+
+const requiredField = { required: "This field is required" };
+
+function ContactForm({ property }) {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting, isLoading },
+  } = useForm();
+
+  function onSubmit(data) {
+    data.recipient = property.owner;
+    data.property = property._id;
+    console.log(data);
+  }
+
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
       <h3 className="text-xl font-bold mb-6">Contact Property Manager</h3>
-      <form>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
-            Name:
-          </label>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormRow label="Name:" rowStyle="mb-4" labelStyle="text-sm" errors={errors} required={true}>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="text"
             id="name"
-            type="text"
+            name="name"
+            {...register("name", requiredField)}
             placeholder="Enter your name"
-            required
           />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-            Email:
-          </label>
+        </FormRow>
+
+        <FormRow
+          label="Email:"
+          rowStyle="mb-4"
+          labelStyle="text-sm"
+          errors={errors}
+          required={true}
+        >
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="email"
-            type="email"
-            placeholder="Enter your email"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
-            Phone:
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="phone"
             type="text"
-            placeholder="Enter your phone number"
+            id="email"
+            name="email"
+            {...register("email", requiredField)}
+            placeholder="Enter your name"
           />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="message">
-            Message:
-          </label>
+        </FormRow>
+
+        <FormRow label="Phone:" rowStyle="mb-4" labelStyle="text-sm" errors={errors}>
+          <input
+            type="text"
+            id="phone"
+            name="phone"
+            {...register("phone")}
+            placeholder="Enter your name"
+          />
+        </FormRow>
+
+        <FormRow label="Message:" labelStyle="mb-4" required={true} errors={errors}>
           <textarea
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 h-44 focus:outline-none focus:shadow-outline"
             id="message"
+            name="message"
+            {...register("message", requiredField)}
+            rows="4"
             placeholder="Enter your message"
           ></textarea>
-        </div>
+        </FormRow>
         <div>
           <button
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline flex items-center justify-center"

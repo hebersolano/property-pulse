@@ -5,6 +5,7 @@ import PropertyHederImage from "@/components/PropertyHederImage";
 import ShareButton from "@/components/ShareButton";
 
 import { getProperty } from "@/config/services/propertiesApi";
+import getUserSession from "@/config/userSessionServer";
 import { notFound } from "next/navigation";
 
 async function PropertyPage({ params }) {
@@ -24,7 +25,7 @@ async function PropertyPage({ params }) {
             <aside className="space-y-4">
               <BookmarkButton propertyId={property._id} />
               <ShareButton property={property} />
-              <ContactForm />
+              <ContactForm property={property} />
             </aside>
           </div>
         </div>

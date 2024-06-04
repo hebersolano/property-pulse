@@ -1,7 +1,8 @@
 import { cloneElement } from "react";
 import { twJoin } from "tailwind-merge";
 
-function FormRow({ label, error, rowClass, required, children }) {
+function FormRow({ label, labelStyle, errors, rowStyle = "mb-2", required, children }) {
+  let error = errors?.[children.props.id];
   const className = twJoin(
     children.props.className,
     "border rounded w-full py-2 px-3",
@@ -11,15 +12,18 @@ function FormRow({ label, error, rowClass, required, children }) {
   const placeholder = `${children.props.placeholder}${required ? "*" : ""}`;
 
   return (
-    <div className={rowClass}>
+    <div className={rowStyle}>
       {label && (
-        <label htmlFor={children.props?.id} className="block text-gray-700 font-bold mb-2">
+        <label
+          htmlFor={children.props?.id}
+          className={twJoin(labelStyle, "block text-gray-700 font-bold mb-2")}
+        >
           {label}
           {required && <span className="text-gray-400">*</span>}
         </label>
       )}
       {cloneElement(children, { className, placeholder })}
-      {error && <span className="text-red-600 text-sm ml-1">{error}</span>}
+      {error && <span className="text-red-600 text-sm ml-1">{error?.message}</span>}
     </div>
   );
 }

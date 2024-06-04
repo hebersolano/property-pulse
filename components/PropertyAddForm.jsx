@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 
 import FormRow from "./FormRow";
 import { addProperty, editProperty, getProperty } from "@/config/services/propertiesApi";
+import LoadingPage from "@/app/loading";
 
 const requiredField = { required: "This field is required" };
 
@@ -15,7 +16,7 @@ function PropertyAddForm({ editMode = false, propertyId }) {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isLoading },
   } = useForm(editMode ? { defaultValues: getProperty.bind(null, propertyId) } : {});
 
   async function onSubmit(data) {
@@ -32,6 +33,8 @@ function PropertyAddForm({ editMode = false, propertyId }) {
   }
 
   console.log(errors);
+
+  if (isLoading) return <LoadingPage />;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -59,7 +62,7 @@ function PropertyAddForm({ editMode = false, propertyId }) {
         {errors.type && <span className="text-red-700">{errors.type}</span>}
       </div>
 
-      <FormRow label="Listing Name" error={errors.name?.message} required={true}>
+      <FormRow label="Listing Name" errors={errors} required={true}>
         <input
           type="text"
           id="name"
@@ -80,7 +83,7 @@ function PropertyAddForm({ editMode = false, propertyId }) {
       </FormRow>
 
       <div className="mb-4 bg-blue-50 p-4">
-        <FormRow label="Location" rowClass="mb-2">
+        <FormRow label="Location" rowStyle="mb-2">
           <input
             type="text"
             id="street"
@@ -90,7 +93,7 @@ function PropertyAddForm({ editMode = false, propertyId }) {
           />
         </FormRow>
 
-        <FormRow rowClass="mb-2" error={errors.location?.city?.message} required={true}>
+        <FormRow rowStyle="mb-2" errors={errors} required={true}>
           <input
             type="text"
             id="city"
@@ -100,7 +103,7 @@ function PropertyAddForm({ editMode = false, propertyId }) {
           />
         </FormRow>
 
-        <FormRow rowClass="mb-2" error={errors.location?.state?.message} required={true}>
+        <FormRow rowStyle="mb-2" errors={errors} required={true}>
           <input
             type="text"
             id="state"
@@ -110,7 +113,7 @@ function PropertyAddForm({ editMode = false, propertyId }) {
           />
         </FormRow>
 
-        <FormRow rowClass="mb-2" error={errors.location?.zipcode?.message} required={true}>
+        <FormRow rowStyle="mb-2" errors={errors} required={true}>
           <input
             type="text"
             id="zipcode"
@@ -122,7 +125,7 @@ function PropertyAddForm({ editMode = false, propertyId }) {
       </div>
 
       <div className="mb-4 flex flex-wrap">
-        <FormRow rowClass="w-full sm:w-1/3 pr-2" label="Beds">
+        <FormRow rowStyle="w-full sm:w-1/3 pr-2" label="Beds">
           <input
             type="number"
             id="beds"
@@ -136,7 +139,7 @@ function PropertyAddForm({ editMode = false, propertyId }) {
           />
         </FormRow>
 
-        <FormRow rowClass="w-full sm:w-1/3 pr-2" label="Baths">
+        <FormRow rowStyle="w-full sm:w-1/3 pr-2" label="Baths">
           <input
             type="number"
             id="baths"
@@ -150,7 +153,7 @@ function PropertyAddForm({ editMode = false, propertyId }) {
           />
         </FormRow>
 
-        <FormRow rowClass="w-full sm:w-1/3 pr-2" label="Square Feet">
+        <FormRow rowStyle="w-full sm:w-1/3 pr-2" label="Square Feet">
           <input
             type="number"
             id="square_feet"
@@ -341,7 +344,7 @@ function PropertyAddForm({ editMode = false, propertyId }) {
           Rates (Leave blank if not applicable)
         </label>
         <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
-          <FormRow rowClass="flex items-center" label="Weekly">
+          <FormRow rowStyle="flex items-center" label="Weekly">
             <input
               type="number"
               id="weekly_rate"
@@ -355,7 +358,7 @@ function PropertyAddForm({ editMode = false, propertyId }) {
             />
           </FormRow>
 
-          <FormRow rowClass="flex items-center" label="Monthly">
+          <FormRow rowStyle="flex items-center" label="Monthly">
             <input
               type="number"
               id="monthly_rate"
@@ -369,7 +372,7 @@ function PropertyAddForm({ editMode = false, propertyId }) {
             />
           </FormRow>
 
-          <FormRow rowClass="flex items-center" label="Nightly">
+          <FormRow rowStyle="flex items-center" label="Nightly">
             <input
               type="number"
               id="nightly_rate"
@@ -385,7 +388,7 @@ function PropertyAddForm({ editMode = false, propertyId }) {
         </div>
       </div>
 
-      <FormRow rowClass="mb-4" label="Seller name">
+      <FormRow rowStyle="mb-4" label="Seller name">
         <input
           type="text"
           id="seller_name"
@@ -395,7 +398,7 @@ function PropertyAddForm({ editMode = false, propertyId }) {
         />
       </FormRow>
 
-      <FormRow rowClass="mb-4" label="Seller email">
+      <FormRow rowStyle="mb-4" label="Seller email">
         <input
           type="email"
           id="seller_email"
@@ -405,7 +408,7 @@ function PropertyAddForm({ editMode = false, propertyId }) {
         />
       </FormRow>
 
-      <FormRow rowClass="mb-4" label="Seller Phone  ">
+      <FormRow rowStyle="mb-4" label="Seller Phone  ">
         <input
           type="tel"
           id="seller_phone"
@@ -416,7 +419,7 @@ function PropertyAddForm({ editMode = false, propertyId }) {
       </FormRow>
 
       {!editMode && (
-        <FormRow rowClass="mb-4" label="Images (Select up to 4 images)">
+        <FormRow rowStyle="mb-4" label="Images (Select up to 4 images)">
           <input
             type="file"
             id="images"
