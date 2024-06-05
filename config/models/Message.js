@@ -8,6 +8,7 @@ const MessageSchema = new Schema(
     name: { type: String, require: [true, "Name is required"] },
     email: { type: String, require: [true, "Email is required"] },
     phone: String,
+    body: { type: String, require: [true, "Message body is required"] },
     read: { type: Boolean, default: false },
   },
   { timestamps: true }

@@ -1,53 +1,49 @@
 "use client";
-
 import { useForm } from "react-hook-form";
+import { FaCheckCircle, FaPaperPlane } from "react-icons/fa";
 import FormRow from "./FormRow";
-import MiniSpinner from "./MiniSpinner";
-import LogInButton from "./Navbar/LogInButton";
-import { signIn, useSession } from "next-auth/react";
 import { postNewMessage } from "@/config/services/userApi";
-
-function ContactForm({ property }) {
-  const { status } = useSession();
-
-  return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      <h3 className="text-xl font-bold mb-6 text-center">Contact Property Manager</h3>
-
-      {status == "loading" && <MiniSpinner />}
-
-      {status === "unauthenticated" && (
-        <div className="flex flex-col items-center justify-center">
-          <p className="mb-4">
-            To send a message to the manager of this property, you need to login first
-          </p>
-          <LogInButton onClick={() => signIn("google")} />
-        </div>
-      )}
-
-      {status === "authenticated" && <Form property={property} />}
-    </div>
-  );
-}
-
-export default ContactForm;
+import MiniSpinner from "./MiniSpinner";
+import { useState } from "react";
 
 const requiredField = { required: "This field is required" };
 
-function Form({ property }) {
+function ContactForm({ property, user }) {
+  const [isSent, setIsSent] = useState(false);
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting, isLoading },
+    formState: { errors, isSubmitting, isSubmitted },
   } = useForm();
 
-  function onSubmit(data) {
+  async function onSubmit(data) {
+    data.sender = user.id;
     data.recipient = property.owner;
     data.property = property._id;
     console.log(data);
-    postNewMessage(data);
+    let res = await postNewMessage(data);
+    setIsSent(res);
   }
+
+  if (isSubmitting) return <MiniSpinner />;
+
+  if (isSent)
+    return (
+      <div>
+        <p className="mb-4 flex justify-center">
+          <FaCheckCircle className="mr-2 text-green-500" /> Message was sent successfully
+        </p>
+        <button
+          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline flex items-center justify-center"
+          type="button"
+          onClick={() => reset()}
+        >
+          <i className="fas fa-paper-plane mr-2"></i> Send Another Message
+        </button>
+      </div>
+    );
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormRow label="Name:" rowStyle="mb-4" labelStyle="text-sm" errors={errors} required={true}>
@@ -82,9 +78,9 @@ function Form({ property }) {
 
       <FormRow label="Message:" labelStyle="mb-4" required={true} errors={errors}>
         <textarea
-          id="message"
-          name="message"
-          {...register("message", requiredField)}
+          id="body"
+          name="body"
+          {...register("body", requiredField)}
           rows="4"
           placeholder="Enter your message"
         ></textarea>
@@ -93,10 +89,13 @@ function Form({ property }) {
         <button
           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline flex items-center justify-center"
           type="submit"
+          disabled={isSubmitting}
         >
-          <i className="fas fa-paper-plane mr-2"></i> Send Message
+          <FaPaperPlane /> Send Message
         </button>
       </div>
     </form>
   );
 }
+
+export default ContactForm;

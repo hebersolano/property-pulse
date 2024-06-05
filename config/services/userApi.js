@@ -7,9 +7,9 @@ export async function postNewMessage(message) {
     console.log(NEXT_API);
     const res = await fetch(`${NEXT_API}/messages`, {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(message),
     });
-    console.log(res);
     if (!res.ok) {
       toast.error("Error sending the message");
       return false;
@@ -17,6 +17,6 @@ export async function postNewMessage(message) {
     toast.success("Message sent successfully");
     return true;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }

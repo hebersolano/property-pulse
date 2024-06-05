@@ -1,5 +1,5 @@
 import BookmarkButton from "@/components/BookmarkButton";
-import ContactForm from "@/components/ContactForm";
+import ContactForm from "@/components/ContactFormBox";
 import PropertyDetails from "@/components/PropertyDetails";
 import PropertyHederImage from "@/components/PropertyHederImage";
 import ShareButton from "@/components/ShareButton";
