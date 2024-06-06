@@ -1,6 +1,13 @@
 import MessageButtons from "./MessageButtons";
 
-var options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+var options = {
+  weekday: "short",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+};
 
 function Message({ message }) {
   const sentAt = new Date(message.createdAt);
@@ -8,6 +15,11 @@ function Message({ message }) {
   return (
     <div className="space-y-4">
       <div className="relative bg-white p-4 rounded-md shadow-md border border-gray-200">
+        {!message.read && (
+          <div className="rounded-md border-ra absolute top-2 right-2 bg-yellow-500 text-white px-2">
+            New
+          </div>
+        )}
         <h2 className="text-xl mb-4">
           <span className="font-bold">Property Inquiry: </span>
           {message.property.name}

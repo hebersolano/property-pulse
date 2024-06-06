@@ -12,7 +12,13 @@ function MessageButtons({ messageId, isRead }) {
     let res = await markAsRead(messageId);
     toast.success(res ? "Message marked as read" : "Message unmarked as read");
   }
-  //markAsRead.bind(null, messageId)
+
+  async function handleDelete() {
+    const res = await deleteMessage(messageId);
+    res ? toast.success("Message was deleted") : toast.error("Error deleting message");
+  }
+
+  const buttonStyle = "";
   return (
     <>
       <button
@@ -20,16 +26,21 @@ function MessageButtons({ messageId, isRead }) {
         disabled={isPending}
         className={twJoin(
           isPending && "cursor-wait bg-gray-500",
-          isRead && "bg-red-500",
-          !isRead && "bg-blue-500",
+          !isPending && isRead && "bg-gray-500",
+          !isPending && !isRead && "bg-yellow-500",
           "mt-4 mr-3  text-white py-1 px-3 rounded-md"
         )}
       >
-        {isRead ? "Mark As Unread" : "Mark As Read"}
+        {isRead ? "Mark As New" : "Mark As Read"}
       </button>
       <button
-        onClick={() => startTransition(deleteMessage.bind(null, messageId))}
-        className="mt-4 bg-red-500 text-white py-1 px-3 rounded-md"
+        onClick={() => startTransition(handleDelete)}
+        disabled={isPending}
+        className={twJoin(
+          isPending && "cursor-wait bg-gray-500",
+          !isPending && "bg-red-500",
+          "mt-4  text-white py-1 px-3 rounded-md"
+        )}
       >
         Delete
       </button>

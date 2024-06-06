@@ -37,7 +37,10 @@ function ContactForm({ property, user }) {
         <button
           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline flex items-center justify-center"
           type="button"
-          onClick={() => reset()}
+          onClick={() => {
+            reset();
+            setIsSent(false);
+          }}
         >
           <i className="fas fa-paper-plane mr-2"></i> Send Another Message
         </button>
@@ -91,7 +94,7 @@ function ContactForm({ property, user }) {
           type="submit"
           disabled={isSubmitting}
         >
-          <FaPaperPlane /> Send Message
+          <FaPaperPlane className="pr-2" /> Send Message
         </button>
       </div>
     </form>

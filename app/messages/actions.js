@@ -21,8 +21,11 @@ export async function markAsRead(id) {
 export async function deleteMessage(id) {
   try {
     await dbConnect();
-    const msj = await Message.findByIdAndDelete(id);
+    const res = await Message.findByIdAndDelete(id);
+    console.log("delete", msf);
+    if (!res) return false;
     revalidatePath("/messages");
+    return true;
   } catch (error) {
     console.log(error);
   }

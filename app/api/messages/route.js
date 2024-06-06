@@ -9,6 +9,7 @@ export async function GET() {
     if (!session?.user) return new Response("unauthorized", { status: 401 });
 
     const messages = await Message.find({ recipient: session.user.id })
+      .sort({ createdAt: -1 })
       .populate("sender", "username")
       .populate("property", "name");
 

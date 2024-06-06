@@ -13,7 +13,7 @@ async function getUserMessages() {
 
 async function MessagesPage() {
   const { messages } = await getUserMessages();
-  const areMessages = Boolean(messages.length);
+  const areMessages = Boolean(messages?.length);
 
   return (
     <section className="bg-blue-50">
