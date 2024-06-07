@@ -2,7 +2,9 @@
 
 import dbConnect from "@/config/dbConnect";
 import Message from "@/config/models/Message";
+import getUserSession from "@/config/userSessionServer";
 import { revalidatePath } from "next/cache";
+import { GET as apiGetUserMessages } from "../api/messages/route";
 
 export async function markAsRead(id) {
   try {
@@ -20,12 +22,26 @@ export async function markAsRead(id) {
 
 export async function deleteMessage(id) {
   try {
+    const session = await getUserSession();
+    if (!session?.user) return false;
     await dbConnect();
-    const res = await Message.findByIdAndDelete(id);
-    console.log("delete", msf);
-    if (!res) return false;
+    const messages = await Message.findByIdAndDelete(id);
+    console.log("delete", messages);
+    if (!messages) return false;
     revalidatePath("/messages");
     return true;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getMessagesCount() {
+  try {
+    const session = await getUserSession();
+    if (!session?.user) throw new Error("unauthorize");
+    await dbConnect();
+    const countMsg = await Message.countDocuments({ recipient: session.user.id, read: false });
+    return Number(countMsg);
   } catch (error) {
     console.log(error);
   }

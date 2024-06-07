@@ -1,5 +1,6 @@
 import dbConnect from "@/config/dbConnect";
 import Message from "@/config/models/Message";
+import Property from "@/config/models/Property";
 import getUserSession from "@/config/userSessionServer";
 
 export async function GET() {

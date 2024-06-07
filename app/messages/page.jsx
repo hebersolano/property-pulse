@@ -1,18 +1,9 @@
 import Message from "@/components/Message";
 import { GET as apiGetUserMessages } from "../api/messages/route";
 
-async function getUserMessages() {
-  try {
-    const res = await apiGetUserMessages();
-    if (!res.ok) return [];
-    return await res.json();
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 async function MessagesPage() {
   const { messages } = await getUserMessages();
+  console.log("messages page", messages);
   const areMessages = Boolean(messages?.length);
 
   return (
@@ -27,6 +18,15 @@ async function MessagesPage() {
       </div>
     </section>
   );
+}
+export async function getUserMessages() {
+  try {
+    const res = await apiGetUserMessages();
+    if (!res.ok) return [];
+    return await res.json();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export default MessagesPage;

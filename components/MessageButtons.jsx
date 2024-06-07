@@ -1,24 +1,27 @@
 "use client";
 
 import { deleteMessage, markAsRead } from "@/app/messages/actions";
+import { useUserContext } from "@/config/UserContext";
 import { useTransition } from "react";
 import toast from "react-hot-toast";
 import { twJoin } from "tailwind-merge";
 
 function MessageButtons({ messageId, isRead }) {
+  const { dispatch } = useUserContext();
   let [isPending, startTransition] = useTransition();
 
   async function handleMarkRead() {
     let res = await markAsRead(messageId);
+    dispatch({ type: "update-msg-count", payload: res ? -1 : 1 });
     toast.success(res ? "Message marked as read" : "Message unmarked as read");
   }
 
   async function handleDelete() {
     const res = await deleteMessage(messageId);
+    dispatch({ type: "update-msg-count", payload: res ? -1 : 0 });
     res ? toast.success("Message was deleted") : toast.error("Error deleting message");
   }
 
-  const buttonStyle = "";
   return (
     <>
       <button
