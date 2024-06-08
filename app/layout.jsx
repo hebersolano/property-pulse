@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import AuthContext from "@/components/AuthProvider";
 import { Toaster } from "react-hot-toast";
 import { UserProvider } from "@/config/UserContext";
+import { getMessagesCount } from "./messages/actions";
 
 export const metadata = {
   title: "PropertyPulse | Find The Perfect Rental",
@@ -11,12 +12,14 @@ export const metadata = {
   keywords: "rental, find rentals, find properties",
 };
 
-function MainLayout({ children }) {
+async function MainLayout({ children }) {
+  const msgCount = await getMessagesCount();
+
   return (
     <html lang="en">
       <body className="">
         <AuthContext>
-          <UserProvider>
+          <UserProvider msgCountProp={msgCount}>
             <Navbar />
             <main>{children}</main>
             <Footer />

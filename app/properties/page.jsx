@@ -1,24 +1,31 @@
-import PropertyCard from "@/components/PropertyCard";
-import { fetchProperties } from "@/config/services/propertiesApi";
-// import properties from "@/properties.json";
+import PropertySearchForm from "@/components/PropertySearchForm";
+import { GET as getApiSearchProperties } from "@/app/api/properties/search/route";
+import Pagination from "@/components/Pagination";
+import Properties from "@/components/Properties";
 
-async function PropertiesPage() {
-  const properties = await fetchProperties();
+async function getSearchProperties(location, type) {
+  try {
+    const res = await getApiSearchProperties({ location, type });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+async function PropertiesPage({ params, searchParams }) {
+  const properties = await getSearchProperties(searchParams.location, searchParams.type);
 
   return (
-    <section className="px-4 py-6">
-      <div className="container-xl lg:container m-auto px-4 py-6">
-        {properties?.length === 0 ? (
-          <div>No properties found</div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {properties.map((property) => (
-              <PropertyCard key={property._id} property={property} />
-            ))}
-          </div>
-        )}
-      </div>
-    </section>
+    <>
+      <PropertySearchForm searchParams={searchParams} />
+
+      <Properties properties={properties} />
+
+      <Pagination />
+    </>
   );
 }
 
