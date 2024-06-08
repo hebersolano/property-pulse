@@ -11,6 +11,7 @@ export async function GET(req) {
 
     if (!location && !propertyType) {
       const properties = await Property.find({});
+      if (!req.url) return properties;
       return new Response(JSON.stringify(properties), { status: 200 });
     }
 
@@ -38,6 +39,7 @@ export async function GET(req) {
     await dbConnect();
     const properties = await Property.find(query);
 
+    if (!req.url) return properties;
     return new Response(JSON.stringify(properties), { status: 200 });
   } catch (error) {
     console.error("Server Error: search property", error);
