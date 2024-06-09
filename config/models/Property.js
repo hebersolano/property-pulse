@@ -1,4 +1,5 @@
 import { Schema, model, models } from "mongoose";
+import * as paginate from "mongoose-paginate-v2";
 
 const PropertySchema = new Schema(
   {
@@ -35,6 +36,8 @@ const PropertySchema = new Schema(
   },
   { timestamps: true }
 );
+
+PropertySchema.plugin(paginate);
 
 const Property = models.Property || model("Property", PropertySchema);
 

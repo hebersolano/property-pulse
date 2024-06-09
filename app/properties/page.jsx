@@ -10,9 +10,9 @@ async function PropertiesPage({ params, searchParams }) {
     <>
       <PropertySearchForm searchParams={searchParams} />
 
-      <Properties properties={properties} />
+      <Properties properties={properties.docs} />
 
-      <Pagination />
+      <Pagination paginate={{ ...properties, docs: null }} />
     </>
   );
 }
