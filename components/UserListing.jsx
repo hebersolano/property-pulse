@@ -1,6 +1,7 @@
 "use client";
 import { deleteProperty } from "@/config/services/propertiesApi";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 function UserListing({ property }) {
@@ -8,7 +9,7 @@ function UserListing({ property }) {
   const image = property.images[0];
   return (
     <div className="mb-10">
-      <a href="/property.html">
+      <Link href="/property.html">
         <Image
           className="h-32 w-full rounded-md object-cover"
           src={image}
@@ -17,18 +18,18 @@ function UserListing({ property }) {
           width={16}
           height={9}
         />
-      </a>
+      </Link>
       <div className="mt-2">
         <p className="text-lg font-semibold">{property.name}</p>
         <p className="text-gray-600">{property.location.city + " " + property.location.state}</p>
       </div>
       <div className="mt-2">
-        <a
+        <Link
           href={`/properties/${property._id}/edit`}
           className="bg-blue-500 text-white px-3 py-3 rounded-md mr-2 hover:bg-blue-600"
         >
           Edit
-        </a>
+        </Link>
         <button
           onClick={() => {
             deleteProperty(property._id);

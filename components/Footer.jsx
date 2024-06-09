@@ -1,6 +1,7 @@
 import Image from "next/image";
 import logo from "@/assets/images/logo.png";
 import UploadFakeProperties from "@/config/services/UploadFakeProperties";
+import Link from "next/link";
 
 function Footer() {
   return (
@@ -13,10 +14,10 @@ function Footer() {
         <div className="flex flex-wrap justify-center md:justify-start mb-4 md:mb-0">
           <ul className="flex space-x-4">
             <li>
-              <a href="/properties.html">Properties</a>
+              <Link href="/properties.html">Properties</Link>
             </li>
             <li>
-              <a href="/terms.html">Terms of Service</a>
+              <Link href="/terms.html">Terms of Service</Link>
             </li>
           </ul>
         </div>

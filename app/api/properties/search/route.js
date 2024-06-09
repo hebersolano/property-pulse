@@ -1,21 +1,31 @@
 import dbConnect from "@/config/dbConnect";
 import Property from "@/config/models/Property";
 
+const sortSchema = {
+  asc: 1,
+  desc: -1,
+  [1]: "asc",
+  [-1]: "desc",
+};
+
 export async function GET(req) {
   try {
     await dbConnect();
     const { searchParams } = new URL(req?.url || process.env.NEXT_PUBLIC_DOMAIN);
     const location = searchParams.get("location") || req.location;
     const propertyType = searchParams.get("type") || req.type;
+    const page = searchParams.get("page") || req.type || 1;
+    const sort = sortSchema[searchParams.get("sort") || req.sort] || -1;
 
     console.log(location, propertyType, "check");
 
     const options = {
-      page: 1,
+      page,
       limit: 9,
       collation: {
         locale: "en",
       },
+      sort: { createdAt: sort },
     };
 
     let query = {};
@@ -51,6 +61,7 @@ export async function GET(req) {
     return new Response(JSON.stringify(properties), { status: 200 });
   } catch (error) {
     console.error("Server Error: search property", error);
+    if (!req.url) return [];
     return new Response("Server Error", { status: 500 });
   }
 }
