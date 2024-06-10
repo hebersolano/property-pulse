@@ -17,8 +17,6 @@ export async function GET(req) {
     const page = searchParams.get("page") || req.type || 1;
     const sort = sortSchema[searchParams.get("sort") || req.sort] || -1;
 
-    console.log(location, propertyType, "check");
-
     const options = {
       page,
       limit: 9,

@@ -1,8 +1,10 @@
-import { handleSearchQueries } from "@/app/properties/actions";
+import { handleSearchQueries, handleSortQueries } from "@/app/properties/actions";
 import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
+import SortButtons from "./SortButtons";
 
 function PropertySearchForm({ searchParams = { location: "", type: "All" } }) {
+  console.log(searchParams);
   return (
     <section className="bg-blue-700 py-4">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-start">
@@ -44,12 +46,28 @@ function PropertySearchForm({ searchParams = { location: "", type: "All" } }) {
               <option value="Other">Other</option>
             </select>
           </div>
+
           <button
             type="submit"
             className="md:ml-4 mt-4 md:mt-0 w-full md:w-auto px-6 py-3 rounded-lg bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-500"
           >
             Search
           </button>
+
+          <div className="inline-flex rounded md:ml-4  " role="group">
+            <button
+              formAction={handleSortQueries.bind(null, { ...searchParams, sort: "desc" })}
+              className=" w-full md:w-auto px-4 py-2 rounded-s bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-500"
+            >
+              Desc
+            </button>
+            <button
+              formAction={handleSortQueries.bind(null, { ...searchParams, sort: "asc" })}
+              className=" w-full md:w-auto px-4 py-2 rounded-e bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-500"
+            >
+              Asc
+            </button>
+          </div>
         </form>
       </div>
     </section>
