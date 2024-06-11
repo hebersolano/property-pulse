@@ -3,12 +3,12 @@ import { GET as getApiSearchProperties } from "@/app/api/properties/search/route
 import Pagination from "@/components/Pagination";
 import Properties from "@/components/Properties";
 
-async function PropertiesPage({ params, searchParams }) {
+async function PropertiesPage({ searchParams }) {
   const properties = await getApiSearchProperties(searchParams);
 
   return (
     <>
-      <PropertySearchForm searchParams={searchParams} />
+      <PropertySearchForm searchParams={searchParams} useSort={true} />
 
       <Properties properties={properties.docs} />
 

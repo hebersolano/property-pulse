@@ -1,6 +1,7 @@
 import { formatCurrency } from "@/assets/helpers";
 import { FaBath, FaBed, FaCheck, FaMapMarker, FaRulerCombined, FaTimes } from "react-icons/fa";
 import PropertyMap from "./PropertyMap";
+import PropertyGallery from "./PropertyGallery";
 
 function PropertyDetails({ property }) {
   const {
@@ -8,6 +9,7 @@ function PropertyDetails({ property }) {
     baths,
     description,
     amenities,
+    images,
     location: { street, city, zipcode },
     rates: { nightly, weekly, monthly },
   } = property;
@@ -74,6 +76,9 @@ function PropertyDetails({ property }) {
             </li>
           ))}
         </ul>
+      </div>
+      <div className="bg-white p-6 rounded-lg shadow-md mt-6">
+        <PropertyGallery images={images} />
       </div>
       <div className="bg-white p-6 rounded-lg shadow-md mt-6">
         <PropertyMap property={property} />

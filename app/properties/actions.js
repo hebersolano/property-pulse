@@ -10,8 +10,7 @@ export async function handleSearchQueries(formData) {
   if (type) params.type = type;
   const sort = formData.get("property-sort");
   if (sort) params.sort = sort;
-  // if (!location && propertyType === "All") redirect("/properties");
-  // const locationQuery = location ? `&location=${location}` : "";
+
   redirect(`/properties?${new URLSearchParams(params).toString()}`);
 }
 
