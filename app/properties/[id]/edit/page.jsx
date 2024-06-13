@@ -2,7 +2,6 @@ import PropertyAddForm from "@/components/PropertyAddForm";
 import { notFound } from "next/navigation";
 
 function PropertyEditPage({ params }) {
-  console.log("edit id", params.id);
   if (!params.id) notFound();
 
   return (

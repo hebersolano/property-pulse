@@ -120,7 +120,6 @@ export async function checkPropertyIsBookmarked(id) {
     const res = await fetch(`${NEXT_API}/properties/bookmarks/check?propertyId=${id}`);
 
     if (!res.ok) return false;
-    console.log(await res.json());
     return true;
   } catch (error) {
     console.log(error);

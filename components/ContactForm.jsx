@@ -21,7 +21,6 @@ function ContactForm({ property, user }) {
     data.sender = user.id;
     data.recipient = property.owner;
     data.property = property._id;
-    console.log(data);
     let res = await postNewMessage(data);
     setIsSent(res);
   }

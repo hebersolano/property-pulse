@@ -10,7 +10,6 @@ export async function markAsRead(id) {
   try {
     await dbConnect();
     const msj = await Message.findById(id);
-    console.log(msj);
     msj.read = !msj.read;
     await msj.save();
     revalidatePath("/messages");
@@ -26,7 +25,6 @@ export async function deleteMessage(id) {
     if (!session?.user) return false;
     await dbConnect();
     const messages = await Message.findByIdAndDelete(id);
-    console.log("delete", messages);
     if (!messages) return false;
     revalidatePath("/messages");
     return true;

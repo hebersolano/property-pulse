@@ -31,17 +31,12 @@ async function dbConnect(dbUrl) {
       console.log("DB connection started");
       return mongoose;
     });
-    // .catch((e) => {
-    //   cached.promise = null;
-    //   dbConnect(process.env.MONGODB_LOCAL); // backup DB connection
-    // });
   }
 
   try {
     cached.conn = await cached.promise;
   } catch (error) {
     cached.promise = null;
-    // dbConnect(process.env.MONGODB_LOCAL);
     throw error;
   }
   return cached.conn;

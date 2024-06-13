@@ -4,7 +4,6 @@ import Image from "next/image";
 import { Gallery, Item } from "react-photoswipe-gallery";
 
 function PropertyGallery({ images }) {
-  console.log("gallery images:", images);
   return (
     <Gallery>
       <div className="grid grid-cols-3 gap-4">

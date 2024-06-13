@@ -7,10 +7,16 @@ import { getFakeProperties } from "@/config/services/fakeProperties";
 const NEXT_API = process.env.NEXT_PUBLIC_API || null;
 
 // GET /api/properties
-export async function GET() {
+export async function GET(req) {
   try {
+    const { searchParams } = new URL(req.url);
+    const isFeatured = searchParams.get("featured");
+    let query = {};
+    if (isFeatured) {
+      query.isFeatured = true;
+    }
     await dbConnect();
-    const properties = await Property.find({});
+    const properties = await Property.find(query);
     return new Response(JSON.stringify(properties), { status: 200 });
   } catch (error) {
     console.log("GET error:", error);

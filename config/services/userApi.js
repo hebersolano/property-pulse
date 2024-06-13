@@ -4,7 +4,6 @@ const NEXT_API = process.env.NEXT_PUBLIC_API || null;
 
 export async function postNewMessage(message) {
   try {
-    console.log(NEXT_API);
     const res = await fetch(`${NEXT_API}/messages`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

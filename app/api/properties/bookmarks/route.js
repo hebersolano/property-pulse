@@ -13,9 +13,9 @@ export async function GET(req) {
     const session = await getUserSession();
     if (!session?.user) return new Response("unauthorized", { status: 401 });
 
-    const res = await User.findOne({ email: session.user.email }, "bookmarks")
-      .populate("bookmarks")
-      .catch((e) => console.log(e));
+    const res = await User.findOne({ email: session.user.email }, "bookmarks").populate(
+      "bookmarks"
+    );
 
     return new Response(JSON.stringify(res.bookmarks), { status: 200 });
   } catch (error) {
@@ -28,7 +28,6 @@ export async function GET(req) {
 export async function POST(req) {
   try {
     const session = await getUserSession();
-    console.log(session);
     if (!session?.user) return new Response("unauthorized", { status: 401 });
 
     const { searchParams } = new URL(req.url);

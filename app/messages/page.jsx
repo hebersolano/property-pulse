@@ -3,7 +3,6 @@ import { GET as apiGetUserMessages } from "../api/messages/route";
 
 async function MessagesPage() {
   const { messages } = await getUserMessages();
-  console.log("messages page", messages);
   const areMessages = Boolean(messages?.length);
 
   return (

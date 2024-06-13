@@ -28,7 +28,6 @@ function PropertyAddForm({ editMode = false, propertyId }) {
     }
 
     const res = await addProperty(data);
-    console.log("res client:", res);
     router.push(`/properties/${res._id}`);
   }
 

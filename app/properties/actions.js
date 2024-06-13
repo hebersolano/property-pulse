@@ -13,7 +13,3 @@ export async function handleSearchQueries(formData) {
 
   redirect(`/properties?${new URLSearchParams(params).toString()}`);
 }
-
-export async function handleSortQueries(searchParams) {
-  redirect(`/properties?${new URLSearchParams(searchParams).toString()}`);
-}
