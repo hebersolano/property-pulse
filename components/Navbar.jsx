@@ -4,11 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 import logo from "@/assets/images/logo-white.png";
-import MobileMenuButton from "./Navbar/MobileMenuButton";
-import ProfileMenu from "./Navbar/ProfileMenu";
-import NotificationsMenu from "./Navbar/NotificationsMenu";
-import LogInButton from "./Navbar/LogInButton";
-import NavLink from "./Navbar/NavLink";
+import MobileMenuButton from "./MobileMenuButton";
+import ProfileMenu from "./user/ProfileMenu";
+import NotificationsMenu from "./message/NotificationsMenu";
+import LogInButton from "./authentication/LogInButton";
+import NavLink from "./NavLink";
 
 import { signIn, signOut, useSession } from "next-auth/react";
 import MiniSpinner from "./MiniSpinner";

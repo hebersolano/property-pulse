@@ -1,4 +1,4 @@
-import { useUserContext } from "@/config/UserContext";
+import { useUserContext } from "@/components/user/UserContext";
 import Link from "next/link";
 
 function NotificationsMenu({}) {

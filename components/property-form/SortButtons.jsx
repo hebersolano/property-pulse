@@ -1,4 +1,3 @@
-import { handleSortQueries } from "@/app/properties/actions";
 import Link from "next/link";
 import { twJoin } from "tailwind-merge";
 

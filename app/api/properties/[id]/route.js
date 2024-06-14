@@ -1,6 +1,6 @@
 import { authOptions } from "@/config/authOptions";
-import dbConnect from "@/config/dbConnect";
-import Property from "@/config/models/Property";
+import dbConnect from "@/db/dbConnect";
+import Property from "@/db/models/Property";
 import { getServerSession } from "next-auth";
 
 // GET /api/properties

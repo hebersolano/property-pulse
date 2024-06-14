@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import profileDefault from "@/assets/images/profile.png";
-import UserListings from "@/components/UserListings";
+import UserListings from "@/components/user/UserListings";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/config/authOptions";
 

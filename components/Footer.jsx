@@ -1,6 +1,6 @@
 import Image from "next/image";
 import logo from "@/assets/images/logo.png";
-import UploadFakeProperties from "@/config/services/UploadFakeProperties";
+import UploadFakeProperties from "@/lib/api-services/seed/UploadFakeProperties";
 import Link from "next/link";
 
 function Footer() {

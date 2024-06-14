@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-import FormRow from "./FormRow";
-import { addProperty, editProperty, getProperty } from "@/config/services/propertiesApi";
+import FormRow from "../FormRow";
+import { addProperty, editProperty, getProperty } from "@/lib/api-services/apiProperty";
 import LoadingPage from "@/app/loading";
 
 const requiredField = { required: "This field is required" };
@@ -30,8 +30,6 @@ function PropertyAddForm({ editMode = false, propertyId }) {
     const res = await addProperty(data);
     router.push(`/properties/${res._id}`);
   }
-
-  console.log(errors);
 
   if (isLoading) return <LoadingPage />;
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { addPropertyToBookmarks, checkPropertyIsBookmarked } from "@/config/services/propertiesApi";
+import { addPropertyToBookmarks, checkPropertyIsBookmarked } from "@/lib/api-services/apiProperty";
 import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
 import toast from "react-hot-toast";

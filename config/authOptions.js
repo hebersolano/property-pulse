@@ -1,6 +1,6 @@
 import GoogleProvider from "next-auth/providers/google";
-import User from "./models/User";
-import dbConnect from "./dbConnect";
+import User from "../db/models/User";
+import dbConnect from "../db/dbConnect";
 
 const authOptions = {
   providers: [
@@ -24,7 +24,7 @@ const authOptions = {
     // invoked on successful sign-in
     async signIn({ profile }) {
       // console.log("profiles authOpts:", profile);
-      
+
       // 1. connect to database
       // 2 Check if user exist
       await dbConnect();

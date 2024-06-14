@@ -1,7 +1,7 @@
 "use client";
 
-import { deleteMessage, markAsRead } from "@/app/messages/actions";
-import { useUserContext } from "@/config/UserContext";
+import { useUserContext } from "@/components/user/UserContext";
+import { deleteMessage, markAsRead } from "@/lib/actions/message-actions";
 import { useTransition } from "react";
 import toast from "react-hot-toast";
 import { twJoin } from "tailwind-merge";

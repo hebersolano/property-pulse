@@ -1,5 +1,5 @@
 "use client";
-import { deleteProperty } from "@/config/services/propertiesApi";
+import { deleteProperty } from "@/lib/api-services/apiProperty";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

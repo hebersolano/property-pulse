@@ -1,4 +1,4 @@
-import { getRecentProperties } from "@/app/properties/services";
+import { getRecentProperties } from "@/lib/services/property-services";
 import PropertyCard from "./PropertyCard";
 
 async function RecentProperties() {

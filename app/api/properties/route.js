@@ -1,8 +1,8 @@
-import { uploadImgBufferCloudinary } from "@/config/cloudinary";
-import dbConnect from "@/config/dbConnect";
-import Property from "@/config/models/Property";
+import dbConnect from "@/db/dbConnect";
+import Property from "@/db/models/Property";
 import getUserSession from "@/config/userSessionServer";
-import { getFakeProperties } from "@/config/services/fakeProperties";
+import { getFakeProperties } from "@/lib/api-services/seed/fakeProperties";
+import { uploadImgBufferCloudinary } from "@/vendor/cloudinary";
 
 const NEXT_API = process.env.NEXT_PUBLIC_API || null;
 

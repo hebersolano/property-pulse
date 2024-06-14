@@ -1,4 +1,4 @@
-import { handleSearchQueries } from "@/app/properties/actions";
+import { handleSearchQueries } from "@/lib/actions/property-actions";
 import SortButtons from "./SortButtons";
 
 function PropertySearchForm({

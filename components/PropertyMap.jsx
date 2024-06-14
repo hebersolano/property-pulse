@@ -2,9 +2,10 @@
 import "mapbox-gl/dist/mapbox-gl.css";
 import { setDefaults, fromAddress } from "react-geocode";
 import { useEffect, useState } from "react";
-import MiniSpinner from "./MiniSpinner";
 import Map, { Marker } from "react-map-gl";
 import Image from "next/image";
+
+import MiniSpinner from "./MiniSpinner";
 import pin from "@/assets/images/pin.svg";
 
 function PropertyMap({ property }) {

@@ -1,7 +1,7 @@
 "use client";
 
-import MiniSpinner from "./MiniSpinner";
-import LogInButton from "./Navbar/LogInButton";
+import MiniSpinner from "../MiniSpinner";
+import LogInButton from "../authentication/LogInButton";
 import { signIn, useSession } from "next-auth/react";
 
 import ContactForm from "./ContactForm";

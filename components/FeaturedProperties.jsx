@@ -1,4 +1,4 @@
-import { getFeaturedProperties } from "@/app/properties/services";
+import { getFeaturedProperties } from "@/lib/services/property-services";
 import FeaturedProperty from "./FeaturedProperty";
 
 async function FeaturedProperties() {

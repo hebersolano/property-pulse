@@ -1,5 +1,5 @@
-import dbConnect from "@/config/dbConnect";
-import Property from "@/config/models/Property";
+import dbConnect from "@/db/dbConnect";
+import Property from "@/db/models/Property";
 
 export async function GET(req, { params }) {
   try {

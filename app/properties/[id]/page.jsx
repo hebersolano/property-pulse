@@ -1,12 +1,11 @@
-import BookmarkButton from "@/components/BookmarkButton";
-import ContactForm from "@/components/ContactFormBox";
+import { notFound } from "next/navigation";
+
+import { getProperty } from "@/lib/api-services/apiProperty";
+import BookmarkButton from "@/components/bookmark/BookmarkButton";
+import ContactForm from "@/components/message/ContactFormBox";
 import PropertyDetails from "@/components/PropertyDetails";
 import PropertyHederImage from "@/components/PropertyHederImage";
-import ShareButton from "@/components/ShareButton";
-
-import { getProperty } from "@/config/services/propertiesApi";
-import getUserSession from "@/config/userSessionServer";
-import { notFound } from "next/navigation";
+import ShareButton from "@/components/property-form/ShareButton";
 
 async function PropertyPage({ params }) {
   const property = await getProperty(params.id);

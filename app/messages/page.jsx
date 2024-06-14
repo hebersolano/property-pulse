@@ -1,4 +1,4 @@
-import Message from "@/components/Message";
+import Message from "@/components/message/Message";
 import { GET as apiGetUserMessages } from "../api/messages/route";
 
 async function MessagesPage() {

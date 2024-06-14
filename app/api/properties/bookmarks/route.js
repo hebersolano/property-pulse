@@ -1,6 +1,6 @@
-import dbConnect from "@/config/dbConnect";
-import Property from "@/config/models/Property";
-import User from "@/config/models/User";
+import dbConnect from "@/db/dbConnect";
+import Property from "@/db/models/Property";
+import User from "@/db/models/User";
 import getUserSession from "@/config/userSessionServer";
 import { ObjectId } from "mongodb";
 

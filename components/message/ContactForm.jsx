@@ -1,9 +1,9 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { FaCheckCircle, FaPaperPlane } from "react-icons/fa";
-import FormRow from "./FormRow";
-import { postNewMessage } from "@/config/services/userApi";
-import MiniSpinner from "./MiniSpinner";
+import FormRow from "../FormRow";
+import { postNewMessage } from "@/lib/api-services/apiUser";
+import MiniSpinner from "../MiniSpinner";
 import { useState } from "react";
 
 const requiredField = { required: "This field is required" };

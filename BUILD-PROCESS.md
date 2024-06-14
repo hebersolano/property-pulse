@@ -1,6 +1,6 @@
 # Property Pulse
 
-React project from the [Next.js From Scratch 2024](https://www.udemy.com/course/nextjs-from-scratch/) course by [Brad Traversy](https://www.traversymedia.com/).
+React project base on the [Next.js From Scratch 2024](https://www.udemy.com/course/nextjs-from-scratch/) course by [Brad Traversy](https://www.traversymedia.com/).
 
 ## Knowledge applied:
 
@@ -11,12 +11,15 @@ React project from the [Next.js From Scratch 2024](https://www.udemy.com/course/
 - NextJS api routes
   - Handle http requests
 - Server vs client components
+- Server actions
 - NextJS components: `Link`, `Image`.
   - setup responsive Image components to better performance.
 - MongoDB
   - Cluster configuration
   - mongoose: data modeling and fetching
 - Authentication with NextAuth
+- Configure and consuming Cloudinary api to store and provide optimized images
+- Create a map with MapBox service
 
 ## Planning:
 

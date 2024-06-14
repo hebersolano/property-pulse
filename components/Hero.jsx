@@ -1,4 +1,4 @@
-import PropertySearchForm from "./PropertySearchForm";
+import PropertySearchForm from "./property-form/PropertySearchForm";
 
 function Hero() {
   return (

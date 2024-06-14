@@ -1,10 +1,10 @@
 import "@/assets/styles/globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import AuthContext from "@/components/AuthProvider";
+import AuthContext from "@/components/authentication/AuthProvider";
 import { Toaster } from "react-hot-toast";
-import { UserProvider } from "@/config/UserContext";
-import { getMessagesCount } from "./messages/actions";
+import { UserProvider } from "@/components/user/UserContext";
+import { getMessagesCount } from "../lib/actions/message-actions";
 
 export const metadata = {
   title: "PropertyPulse | Find The Perfect Rental",

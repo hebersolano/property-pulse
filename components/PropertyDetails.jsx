@@ -1,7 +1,7 @@
-import { formatCurrency } from "@/assets/helpers";
 import { FaBath, FaBed, FaCheck, FaMapMarker, FaRulerCombined, FaTimes } from "react-icons/fa";
 import PropertyMap from "./PropertyMap";
 import PropertyGallery from "./PropertyGallery";
+import { formatCurrency } from "@/lib/helpers";
 
 function PropertyDetails({ property }) {
   const {

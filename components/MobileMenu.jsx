@@ -1,5 +1,5 @@
 import { FaGoogle } from "react-icons/fa";
-import NavLink from "./NavLink";
+import NavLink from "./Navbar/NavLink";
 
 function MobileMenu({ isLoggedIn }) {
   return (

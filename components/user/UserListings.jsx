@@ -1,4 +1,4 @@
-import { getUserProperties } from "@/config/services/propertiesApi";
+import { getUserProperties } from "@/lib/api-services/apiProperty";
 import UserListing from "./UserListing";
 import { notFound } from "next/navigation";
 
