@@ -14,7 +14,6 @@ export async function GET(req) {
     if (!ObjectId.isValid(propertyId))
       return new Response("Bad Request: invalid property id", { status: 400 });
 
-    await dbConnect();
     const isBookmarked = session.user.bookmarks.includes(propertyId);
     return new Response(JSON.stringify({ isBookmarked, propertyId }), { status: 200 });
   } catch (error) {

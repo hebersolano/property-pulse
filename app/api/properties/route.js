@@ -68,6 +68,7 @@ export async function POST(req) {
   }
 }
 
+// seed data api  
 export async function DELETE(req) {
   try {
     const session = await getUserSession();

@@ -6,6 +6,7 @@ async function HomeProperties() {
   return (
     <>
       <FeaturedProperties />
+
       <RecentProperties />
 
       <section className="m-auto max-w-lg my-10 px-6">

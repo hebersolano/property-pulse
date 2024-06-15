@@ -1,7 +1,6 @@
-import { authOptions } from "@/config/authOptions";
+import getUserSession from "@/config/userSessionServer";
 import dbConnect from "@/db/dbConnect";
 import Property from "@/db/models/Property";
-import { getServerSession } from "next-auth";
 
 // GET /api/properties
 export async function GET(req, { params }) {
@@ -24,10 +23,10 @@ export async function GET(req, { params }) {
 
 export async function DELETE(req, { params }) {
   try {
-    const session = await getServerSession(authOptions);
-    if (!session) return new Response("unauthorized", { status: 401 });
+    const session = await getUserSession();
+    if (!session?.user) return new Response("unauthorized", { status: 401 });
 
-    if (!params.id) return new Response("no property id", { status: 400 });
+    if (!params?.id) return new Response("no property id", { status: 400 });
 
     await dbConnect();
     const res = await Property.findByIdAndDelete(params.id).where("owner").equals(session.user.id);

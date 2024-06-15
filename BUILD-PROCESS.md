@@ -11,17 +11,23 @@ React project base on the [Next.js From Scratch 2024](https://www.udemy.com/cour
 - NextJS api routes
   - Handle http requests
 - Server vs client components
+- Dynamic vs static render on production
 - Server actions
   - apply server actions on client and server side
+  - search and sort feature using server actions
 - NextJS components: `Link`, `Image`.
   - setup responsive Image components to better performance.
 - MongoDB
   - Cluster configuration
-  - mongoose: data modeling and fetching
+  - Optimize mongoose connection setup to avoid redundant connections.
+  - Mongoose: data modeling and fetching
+  - Mongoose paginate v2: configure plugin
+  - Optimize queries
 - Authentication with NextAuth
   - Configure providers and callbacks
   - User authentication and authorization on client and server side
 - Configure and consuming Cloudinary api to store and provide optimized images
+  - Handle image buffers to upload with `upload_stream` cloudinary api
 - Create a map with MapBox service
 
 ## Planning:

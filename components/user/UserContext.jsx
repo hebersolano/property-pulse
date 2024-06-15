@@ -1,5 +1,6 @@
 "use client";
 
+import { getMessagesCount } from "@/lib/actions/message-actions";
 import { createContext, useContext, useEffect, useReducer } from "react";
 
 const UserContext = createContext();
@@ -18,15 +19,16 @@ function reducer(state, action) {
   }
 }
 
-function UserProvider({ msgCountProp, children }) {
+function UserProvider({ children }) {
   const [{ msgCount }, dispatch] = useReducer(reducer, initState);
 
-  useEffect(
-    function () {
+  useEffect(function () {
+    async function fetchMsgs() {
+      const msgCount = await getMessagesCount();
       dispatch({ type: "msg-count", payload: msgCountProp });
-    },
-    [msgCountProp]
-  );
+    }
+    fetchMsgs();
+  }, []);
 
   return <UserContext.Provider value={{ msgCount, dispatch }}>{children}</UserContext.Provider>;
 }
