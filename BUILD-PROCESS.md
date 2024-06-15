@@ -12,12 +12,15 @@ React project base on the [Next.js From Scratch 2024](https://www.udemy.com/cour
   - Handle http requests
 - Server vs client components
 - Server actions
+  - apply server actions on client and server side
 - NextJS components: `Link`, `Image`.
   - setup responsive Image components to better performance.
 - MongoDB
   - Cluster configuration
   - mongoose: data modeling and fetching
 - Authentication with NextAuth
+  - Configure providers and callbacks
+  - User authentication and authorization on client and server side
 - Configure and consuming Cloudinary api to store and provide optimized images
 - Create a map with MapBox service
 

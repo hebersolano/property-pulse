@@ -1,4 +1,4 @@
-import { getRateDisplay } from "@/helpers";
+import { getRateDisplay } from "@/lib/helpers";
 import Image from "next/image";
 import Link from "next/link";
 import { FaBath, FaBed, FaMapMarker, FaMoneyBill, FaRulerCombined } from "react-icons/fa";
