@@ -25,7 +25,7 @@ function UserProvider({ children }) {
   useEffect(function () {
     async function fetchMsgs() {
       const msgCount = await getMessagesCount();
-      dispatch({ type: "msg-count", payload: msgCountProp });
+      dispatch({ type: "msg-count", payload: msgCount });
     }
     fetchMsgs();
   }, []);

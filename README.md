@@ -2,30 +2,30 @@
   <!-- Brief -->
   <h2>Property Pulse</h2>
   <p >
-  Project description
+  Find The Perfect Rental. Property Pulse is a website where you can find the perfect property that suits your needs.
   </p>
 
-  <!-- Screenshot -->
-  <img src="./public/logo-dark.png" alt="logo" width="200px" height="auto">
+  <img src="./assets/images/logo-white.png" alt="logo" width="32px" height="auto">
 
   <br>
   
-  <a align="center" href="">
-    <img src="./public/thumbnail-preview.png" alt="preview"  width="60%" style="">
+  <!-- Screenshot -->
+  <a align="center" href="https://property-pulse-hs.onrender.com">
+    <img src="./public/property-pulse-screenshot.png" alt="preview"  width="60%" style="">
   </a>
 
   <h3>
-    <a href="">
+    <a href="https://property-pulse-hs.onrender.com">
       <strong>Demo Website</strong>
     </a>
   </h3>
 
   <div>
-    <a href="#">View Demo</a>
+    <a href="https://property-pulse-hs.onrender.com">View Demo</a>
     &emsp;•&emsp;
-    <a href="#">Report Bug</a>
+    <a href="https://github.com/hebersolano/property-pulse/issues">Report Bug</a>
    &emsp;•&emsp;
-    <a href="#">Request Feature</a>
+    <a href="https://github.com/hebersolano/property-pulse/pulls">Request Feature</a>
   </div>
 
   <br>

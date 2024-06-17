@@ -34,7 +34,13 @@ React project base on the [Next.js From Scratch 2024](https://www.udemy.com/cour
 
 ### Requirements and features:
 
--
+- Users of the app are people who wether wants to search properties for rent or listing their properties to potential tenants
+- The home page will have a form to quickly search by location and properties type. Also section of featured properties and the most recent listings
+- Users can access to all listed properties paginated and sortable by creation date, with the search form at top
+- Anyone with a Google account can sign up to have a profile with its email, name and photo
+- Only user with a profile can bookmark properties, send messages to properties owners, add or edit their own properties
+- Signed in users will have access to their profile, bookmarks, messages and listings on the navbar
+- Through a notification icon that show how many are unread
 
 ### What I Learned
 
@@ -44,25 +50,29 @@ By building "" project with these technologies and concepts, I've developed a co
 
 ### Features Categories:
 
--
-
-### Pages:
-
--
+- Properties
+- Property
+- Listings
+- Bookmarks
+- Add property
+- Edit property
+- Messages
+- Authentication
 
 ### Technology decisions:
 
 - Routing: NextJS app router
 - Styling: tailwind
-- UI state management:
-- Form management:
+- UI state management: remote and react context
+- Form management: react hook form
 - Database: MongoDB
-- Other tools:
-  - Icons: react-icons
+- Image storage: Cloudinary
 
 ## Things to check
 
+- Check if fetch api can be replace by server actions
 -
+- Optimize images
 
 ## New features to implement
 
