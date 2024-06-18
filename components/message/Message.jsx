@@ -11,6 +11,7 @@ var options = {
 
 function Message({ message }) {
   const sentAt = new Date(message.createdAt);
+  console.log(message);
 
   return (
     <div className="space-y-4">
@@ -22,7 +23,7 @@ function Message({ message }) {
         )}
         <h2 className="text-xl mb-4">
           <span className="font-bold">Property Inquiry: </span>
-          {message.property.name}
+          {message.property?.name || <i>Property Not Found</i>}
         </h2>
         <p className="text-gray-700">{message.body}</p>
 
