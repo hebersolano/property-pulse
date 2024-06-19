@@ -11,7 +11,6 @@ var options = {
 
 function Message({ message }) {
   const sentAt = new Date(message.createdAt);
-  console.log(message);
 
   return (
     <div className="space-y-4">

@@ -45,8 +45,6 @@
 
 ### Installation
 
-![Screenshot](./public/thumbnail-preview.png)
-
 - Clone this repo:
 
 ```sh
@@ -57,6 +55,28 @@ git clone https://github.com/hebersolano/property-pulse.git
 
 ```sh
 npm install
+```
+
+- Create a dev.local file with this variables:
+
+```env
+MONGODB_URI=""
+
+NEXT_PUBLIC_DOMAIN="http://localhost:3000"
+NEXT_PUBLIC_API="http://localhost:3000/api"
+
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_URL_INTERNAL="http://localhost:3000"
+NEXTAUTH_SECRET=""
+
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+
+CLOUDINARY_CLOUD_NAME = ""
+CLOUDINARY_KEY=""
+CLOUDINARY_SECRET=""
+
+NEXT_PUBLIC_MAPBOX_TOKEN=""
 ```
 
 - Build command:

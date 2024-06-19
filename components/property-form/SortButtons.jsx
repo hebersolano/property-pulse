@@ -2,7 +2,6 @@ import Link from "next/link";
 import { twJoin } from "tailwind-merge";
 
 function SortButtons({ searchParams, sort }) {
-  console.log("can sort", sort);
   return (
     <div className="inline-flex rounded md:ml-4  " role="group">
       <Link

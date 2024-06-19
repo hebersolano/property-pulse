@@ -42,18 +42,13 @@ React project base on the [Next.js From Scratch 2024](https://www.udemy.com/cour
 - Signed in users will have access to their profile, bookmarks, messages and listings on the navbar
 - Through a notification icon that show how many are unread
 
-### What I Learned
-
--
-
-By building "" project with these technologies and concepts, I've developed a comprehensive set of skills and knowledge that can be applied to future projects and real-world scenarios. This experience has not only expanded my technical expertise but also improved my problem-solving capabilities.
-
 ### Features Categories:
 
 - Properties
 - Property
 - Listings
-- Bookmarks
+- Bookmark property
+- Show bookmarks
 - Add property
 - Edit property
 - Messages
@@ -70,10 +65,11 @@ By building "" project with these technologies and concepts, I've developed a co
 
 ## Things to check
 
-- Check if fetch api can be replace by server actions
--
+- Check if a api route could be replace by an action
+- Login page with email sign in
+- Change messages design
+- Change profile and listings design
+- Error handling
 - Optimize images
 
 ## New features to implement
-
--
