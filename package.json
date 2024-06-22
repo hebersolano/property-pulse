@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "cloudinary": "^2.2.0",
     "mapbox-gl": "^3.4.0",
     "mongodb": "^6.6.0",
@@ -26,7 +27,8 @@
     "react-photoswipe-gallery": "^3.0.1",
     "react-share": "^5.1.0",
     "react-spinners": "^0.13.8",
-    "tailwind-merge": "^2.3.0"
+    "tailwind-merge": "^2.3.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "eslint": "^8",

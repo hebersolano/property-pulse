@@ -1,9 +1,28 @@
 import GoogleProvider from "next-auth/providers/google";
 import User from "../db/models/User";
 import dbConnect from "../db/dbConnect";
+import Credentials from "next-auth/providers/credentials";
+import { z } from "zod";
 
 const authOptions = {
   providers: [
+    Credentials({
+      async authorize(credentials) {
+        const parsedCredentials = z
+          .object({
+            email: z.string().email(),
+            password: z.string().min(6),
+          })
+          .safeParse(credentials);
+
+        if (parsedCredentials.success) {
+          const { email, password } = parsedCredentials.data;
+          const user = await User.find({ email });
+          if (!user) return null;
+          return user;
+        }
+      },
+    }),
     GoogleProvider({
       debug: true,
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -21,6 +40,12 @@ const authOptions = {
     }),
   ],
   callbacks: {
+    authorize({ auth, request: { nestUrl } }) {
+      console.log("******authorize callback running...");
+      const isLoggedIn = typeof auth?.user !== undefined;
+      if (isLoggedIn) return true;
+      return false;
+    },
     // invoked on successful sign-in
     async signIn({ profile }) {
       // console.log("profiles authOpts:", profile);
@@ -51,6 +76,9 @@ const authOptions = {
       // 3. return session
       return session;
     },
+  },
+  pages: {
+    signIn: "/login",
   },
 };
 

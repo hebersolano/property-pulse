@@ -65,8 +65,9 @@ React project base on the [Next.js From Scratch 2024](https://www.udemy.com/cour
 
 ## Things to check
 
-- Check if a api route could be replace by an action
 - Login page with email sign in
+- Email and password login
+- Check if a api route could be replace by an action
 - Change messages design
 - Change profile and listings design
 - Error handling
