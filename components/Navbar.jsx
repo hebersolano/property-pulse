@@ -52,13 +52,13 @@ function Navbar() {
             {status === "unauthenticated" && (
               <div className="hidden sm:block">
                 <div className="flex items-center">
-                  <LogInButton onClick={() => signIn("google")} />
+                  <LogInButton />
                 </div>
               </div>
             )}
 
             {/* <!-- Right Side Menu (Logged In) --> */}
-            {status === "authenticated" && (
+            {typeof session?.user !== "undefined" && (
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <NotificationsMenu userId={session.user.id} />
                 {/* <!-- Profile dropdown button --> */}

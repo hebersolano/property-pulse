@@ -8,6 +8,7 @@ const authOptions = {
   providers: [
     Credentials({
       async authorize(credentials) {
+        console.log("*****credentials authorize running...");
         const parsedCredentials = z
           .object({
             email: z.string().email(),
@@ -17,7 +18,8 @@ const authOptions = {
 
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
-          const user = await User.find({ email });
+          await dbConnect();
+          const user = await User.findOne({ email });
           if (!user) return null;
           return user;
         }
@@ -40,22 +42,22 @@ const authOptions = {
     }),
   ],
   callbacks: {
-    authorize({ auth, request: { nestUrl } }) {
-      console.log("******authorize callback running...");
+    authorized({ auth, request: { nextUrl } }) {
+      console.log("******authorized callback running...");
       const isLoggedIn = typeof auth?.user !== undefined;
       if (isLoggedIn) return true;
       return false;
     },
     // invoked on successful sign-in
-    async signIn({ profile }) {
+    async signIn({ user, account, profile, email, credentials }) {
       // console.log("profiles authOpts:", profile);
-
+      // if (credentials?.email) return true;
       // 1. connect to database
       await dbConnect();
       // 2 Check if user exist
-      const user = await User.findOne({ email: profile.email });
+      const userDb = await User.findOne({ email: profile?.email || credentials.email });
       // 3. If not, then add user to database
-      if (!user) {
+      if (!userDb) {
         const username = profile.name.slice(0, 20);
         await User.create({ email: profile.email, username, image: profile.picture });
       }

@@ -1,13 +1,14 @@
 import { cloneElement } from "react";
+import { twMerge } from "tailwind-merge";
 import { twJoin } from "tailwind-merge";
 
 function FormRow({ label, labelStyle, errors, rowStyle = "mb-2", required, children }) {
   const error = errors?.[children.props.id];
 
-  const className = twJoin(
+  const className = twMerge(
+    error && "border-red-600 border-2 focus:border-red-600 focus:outline-none ",
     children.props.className,
-    "border rounded w-full py-2 px-3",
-    error && "border-red-600 border-2 focus:border-red-600 focus:outline-none "
+    "border rounded w-full py-2 px-3"
   );
 
   const placeholder = `${children.props.placeholder}${required ? "*" : ""}`;
