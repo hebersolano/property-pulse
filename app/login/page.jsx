@@ -2,6 +2,7 @@
 import FormRow from "@/components/FormRow";
 import { authenticate } from "@/lib/actions/auth-actions";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { FaGoogle } from "react-icons/fa";
 
@@ -84,9 +85,9 @@ function LoginPage() {
 
           <p className="text-center text-sm text-gray-500">
             No account?
-            <a className="underline" href="#">
+            <Link className="underline" href="/signup">
               Sign up
-            </a>
+            </Link>
           </p>
         </div>
       </form>
