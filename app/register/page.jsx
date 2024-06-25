@@ -1,5 +1,6 @@
 "use client";
 import FormRow from "@/components/FormRow";
+import { registerNewUser } from "@/lib/actions/auth-actions";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -15,6 +16,7 @@ function LoginPage() {
 
   async function submitHandler(formData) {
     console.log(formData);
+    await registerNewUser(formData);
   }
 
   return (

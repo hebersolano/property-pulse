@@ -11,7 +11,7 @@ const authOptions = {
         console.log("*****credentials authorize running...");
         const parsedCredentials = z
           .object({
-            email: z.string().email(),
+            email: z.string(),
             password: z.string().min(6),
           })
           .safeParse(credentials);
@@ -19,7 +19,7 @@ const authOptions = {
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
           await dbConnect();
-          const user = await User.findOne({ email });
+          const user = await User.findAndValidate(email, password).catch((e) => console.log(e));
           if (!user) return null;
           return user;
         }
@@ -51,6 +51,7 @@ const authOptions = {
     // invoked on successful sign-in
     async signIn({ user, account, profile, email, credentials }) {
       // console.log("profiles authOpts:", profile);
+      console.log("credentials sign in ===", credentials);
       // if (credentials?.email) return true;
       // 1. connect to database
       await dbConnect();

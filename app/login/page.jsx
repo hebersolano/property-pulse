@@ -40,12 +40,12 @@ function LoginPage() {
         <div className="mb-0 mt-6 space-y-6 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
           <FormRow label="Email" errors={errors} required={true} labelStyle="sr-only">
             <input
-              type="email"
+              type="text"
               id="email"
               name="email"
               className="w-full rounded-lg border-gray-200 p-4 pe-12   shadow-sm"
               {...register("email", { required: "This field is required" })}
-              placeholder="Enter email"
+              placeholder="Enter email or username"
             />
           </FormRow>
 
@@ -85,7 +85,7 @@ function LoginPage() {
 
           <p className="text-center text-sm text-gray-500">
             No account?
-            <Link className="underline" href="/signup">
+            <Link className="underline" href="/register">
               Sign up
             </Link>
           </p>

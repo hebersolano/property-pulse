@@ -1,5 +1,6 @@
 import { Schema, model, models } from "mongoose";
 import bcrypt from "bcrypt";
+import { z } from "zod";
 
 const UserSchema = new Schema(
   {
@@ -25,7 +26,13 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-UserSchema.statics.findAndValidate = async function (username, password) {
+UserSchema.statics.findAndValidate = async function (email, password) {
+  // const parseResult = z.string().email().parse(usernameOrEmail);
+
+  // let query = {};
+  // if (parseResult.success) query.user = usernameOrEmail;
+  // else query.username = usernameOrEmail;
+
   const user = await this.findOne({ email });
   if (!user) return false;
   const isValidated = await bcrypt.compare(password, user.password);
