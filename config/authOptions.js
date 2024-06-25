@@ -11,7 +11,7 @@ const authOptions = {
         console.log("*****credentials authorize running...");
         const parsedCredentials = z
           .object({
-            email: z.string(),
+            email: z.string().email(),
             password: z.string().min(6),
           })
           .safeParse(credentials);
@@ -19,7 +19,7 @@ const authOptions = {
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
           await dbConnect();
-          const user = await User.findAndValidate(email, password).catch((e) => console.log(e));
+          const user = await User.findAndValidate(email, password);
           if (!user) return null;
           return user;
         }

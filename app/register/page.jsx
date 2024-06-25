@@ -15,7 +15,6 @@ function LoginPage() {
   } = useForm();
 
   async function submitHandler(formData) {
-    console.log(formData);
     await registerNewUser(formData);
   }
 
