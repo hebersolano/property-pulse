@@ -12,6 +12,7 @@ import NavLink from "./NavLink";
 
 import { signIn, signOut, useSession } from "next-auth/react";
 import MiniSpinner from "./MiniSpinner";
+import ButtonLink from "./ButtonLink";
 
 function Navbar() {
   const { data: session, status } = useSession();
@@ -52,7 +53,10 @@ function Navbar() {
             {status === "unauthenticated" && (
               <div className="hidden sm:block">
                 <div className="flex items-center">
-                  <LogInButton />
+                  <Link href="/login" className="text-white hover:underline">
+                    Log in
+                  </Link>
+                  <ButtonLink to="/register">Sign up</ButtonLink>
                 </div>
               </div>
             )}

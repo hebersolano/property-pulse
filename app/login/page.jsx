@@ -16,7 +16,10 @@ function LoginPage() {
 
   async function submitHandler(formData) {
     try {
-      await signIn("credentials", formData);
+      let res = await signIn("credentials", {
+        ...formData,
+        callbackUrl: process.env.NEXT_PUBLIC_DOMAIN,
+      });
     } catch (error) {
       switch (error?.type) {
         case "CredentialsSignin": {
@@ -80,7 +83,7 @@ function LoginPage() {
             className="flex items-center justify-center w-full rounded-lg text-white bg-gray-700 hover:bg-gray-900 hover:text-white px-5 py-3 text-sm "
           >
             <FaGoogle className=" mr-2 sm:mr-0 md:mr-2 " />
-            <span className="">Login or Register with Google</span>
+            <span className="">Log in with Google</span>
           </button>
 
           <p className="text-center text-sm text-gray-500">
