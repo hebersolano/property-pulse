@@ -4,6 +4,7 @@ import { registerNewUser } from "@/lib/actions/auth-actions";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
 
 function LoginPage() {
@@ -15,7 +16,14 @@ function LoginPage() {
   } = useForm();
 
   async function submitHandler(formData) {
-    await registerNewUser(formData);
+    const res = await registerNewUser(formData);
+    if (res?.user) {
+      await signIn("credentials", {
+        email: formData.email,
+        password: formData.password,
+        callbackUrl: process.env.NEXT_PUBLIC_DOMAIN,
+      });
+    }
   }
 
   return (
@@ -91,7 +99,9 @@ function LoginPage() {
           <button
             onClick={(e) => {
               e.preventDefault();
-              signIn("google");
+              signIn("google", {
+                callbackUrl: process.env.NEXT_PUBLIC_DOMAIN,
+              });
             }}
             className="flex items-center justify-center w-full rounded-lg text-white bg-gray-700 hover:bg-gray-900 hover:text-white px-5 py-3  "
           >

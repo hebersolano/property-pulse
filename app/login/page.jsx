@@ -78,7 +78,9 @@ function LoginPage() {
           <button
             onClick={(e) => {
               e.preventDefault();
-              signIn("google");
+              signIn("google", {
+                callbackUrl: process.env.NEXT_PUBLIC_DOMAIN,
+              });
             }}
             className="flex items-center justify-center w-full rounded-lg text-white bg-gray-700 hover:bg-gray-900 hover:text-white px-5 py-3 text-sm "
           >
