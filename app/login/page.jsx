@@ -4,6 +4,7 @@ import { authenticate } from "@/lib/actions/auth-actions";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
 
 function LoginPage() {
@@ -16,20 +17,14 @@ function LoginPage() {
 
   async function submitHandler(formData) {
     try {
-      let res = await signIn("credentials", {
+      await signIn("credentials", {
         ...formData,
         callbackUrl: process.env.NEXT_PUBLIC_DOMAIN,
       });
     } catch (error) {
-      switch (error?.type) {
-        case "CredentialsSignin": {
-          return "Invalid Credentials";
-        }
-      }
-      console.error(error.type);
-      console.log(error);
       reset();
-      return "Something went wrong";
+      if (error?.type == "CredentialsSignin") return toast.error("Invalid Credentials");
+      toast.error("Something went wrong");
     }
   }
 

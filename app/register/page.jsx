@@ -3,11 +3,13 @@ import FormRow from "@/components/FormRow";
 import { registerNewUser } from "@/lib/actions/auth-actions";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { redirect, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
 
 function LoginPage() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -16,13 +18,21 @@ function LoginPage() {
   } = useForm();
 
   async function submitHandler(formData) {
-    const res = await registerNewUser(formData);
-    if (res?.user) {
-      await signIn("credentials", {
-        email: formData.email,
-        password: formData.password,
-        callbackUrl: process.env.NEXT_PUBLIC_DOMAIN,
-      });
+    try {
+      const res = await registerNewUser(formData);
+      if (res?.ok) {
+        toast.success(`Welcome to PropertyPulse, ${formData.username}`);
+        await signIn("credentials", {
+          email: formData.email,
+          password: formData.password,
+          callbackUrl: process.env.NEXT_PUBLIC_DOMAIN,
+        });
+      }
+      if (res?.redirect) router.push("/login");
+      toast.error(res?.msg);
+    } catch (error) {
+      console.log(error);
+      toast.error("Error signing up, please try later");
     }
   }
 
@@ -38,6 +48,7 @@ function LoginPage() {
               id="username"
               name="username"
               className="w-full rounded-lg border-gray-200 p-4 pe-12   shadow-sm"
+              autoComplete="off"
               {...register("username", { required: "This field is required" })}
               placeholder="Username"
             />
@@ -49,6 +60,7 @@ function LoginPage() {
               id="email"
               name="email"
               className="w-full rounded-lg border-gray-200 p-4 pe-12   shadow-sm"
+              autoComplete="off"
               {...register("email", { required: "This field is required" })}
               placeholder="Email"
             />
@@ -61,7 +73,8 @@ function LoginPage() {
               name="password"
               className="w-full rounded-lg border-gray-200 p-4 pe-12   shadow-sm"
               placeholder="Password"
-              {...register("password", { required: "This field is required", minLength: 6 })}
+              autoComplete="off"
+              {...register("password", { required: "This field is required", minLength: 8 })}
             />
           </FormRow>
 

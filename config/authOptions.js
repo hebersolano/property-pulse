@@ -60,7 +60,12 @@ const authOptions = {
       // 3. If not, then add user to database
       if (!userDb) {
         const username = profile.name.slice(0, 20);
-        await User.create({ email: profile.email, username, image: profile.picture });
+        await User.create({
+          email: profile.email,
+          username,
+          image: profile.picture,
+          password: null,
+        });
       }
       // 4 Return true to allow sign in
       return true;

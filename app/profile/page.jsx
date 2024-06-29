@@ -4,12 +4,12 @@ import profileDefault from "@/assets/images/profile.png";
 import UserListings from "@/components/user/UserListings";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/config/authOptions";
+import getUserSession from "@/config/userSessionServer";
 
 async function ProfilePage() {
-  const session = await getServerSession(authOptions);
-
+  const session = await getUserSession();
   const profileImg = session?.user?.image || profileDefault;
-  const profileName = session?.user?.name;
+  const profileName = session?.user?.username;
   const profileEmail = session?.user?.email;
 
   return (
