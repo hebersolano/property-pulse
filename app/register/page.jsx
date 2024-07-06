@@ -23,6 +23,7 @@ function LoginPage() {
       if (res?.ok) {
         toast.success(`Welcome to PropertyPulse, ${formData.username}`);
         await signIn("credentials", {
+          username: formData.username,
           email: formData.email,
           password: formData.password,
           callbackUrl: process.env.NEXT_PUBLIC_DOMAIN,

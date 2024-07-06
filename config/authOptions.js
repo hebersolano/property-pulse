@@ -77,7 +77,8 @@ const authOptions = {
       await dbConnect();
       const user = await User.findOne({ email: session.user.email });
       // 2. assign the user id to the session
-      session.user.id = user._id.toString();
+      Object.assign(session.user, { id: user._id.toString(), username: user.username });
+
       if (user?.bookmarks.length)
         session.user.bookmarks = user.bookmarks.map((bookmark) => bookmark.toString());
       else session.user.bookmarks = [];
