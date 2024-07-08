@@ -1,6 +1,8 @@
 import PropertyCard from "@/components/PropertyCard";
 import { GET as getApiUserBookmarks } from "@/app/api/properties/bookmarks/route";
 
+export const dynamic = "force-dynamic";
+
 async function getUserBookmarks() {
   try {
     const res = await getApiUserBookmarks();

@@ -19,7 +19,7 @@ function Navbar() {
   console.log("session status:", status);
   const profileImg = session?.user?.image;
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <nav className="bg-blue-700 border-b border-blue-500">

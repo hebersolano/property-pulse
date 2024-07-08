@@ -8,7 +8,7 @@ const override = {
 
 function LoadingPage() {
   return (
-    <div className="flex items-center" style={{ height: "81vh" }}>
+    <div className="bg-blue-50 flex flex-1 justify-center items-center">
       <ClipLoader
         color="rgb(59 130 246)"
         loading={true}

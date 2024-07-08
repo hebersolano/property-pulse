@@ -18,7 +18,9 @@ async function MainLayout({ children }) {
         <AuthContext>
           <UserProvider>
             <Navbar />
-            <main>{children}</main>
+            <main className="flex flex-col min-h-[calc(100vh-14.5rem)]  md:min-h-[calc(100vh-8rem)]">
+              {children}
+            </main>
             <Footer />
             <Toaster
               position="bottom-right"

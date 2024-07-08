@@ -8,7 +8,6 @@ const authOptions = {
   providers: [
     Credentials({
       async authorize(credentials) {
-        console.log("*****credentials authorize running...");
         const parsedCredentials = z
           .object({
             email: z.string().email(),
@@ -77,7 +76,10 @@ const authOptions = {
       await dbConnect();
       const user = await User.findOne({ email: session.user.email });
       // 2. assign the user id to the session
-      Object.assign(session.user, { id: user._id.toString(), username: user.username });
+      Object.assign(session.user, {
+        id: user._id.toString(),
+        username: user.username || user.name,
+      });
 
       if (user?.bookmarks.length)
         session.user.bookmarks = user.bookmarks.map((bookmark) => bookmark.toString());

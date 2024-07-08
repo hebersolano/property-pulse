@@ -6,16 +6,6 @@ import ContactForm from "@/components/message/ContactFormBox";
 import PropertyDetails from "@/components/PropertyDetails";
 import PropertyHederImage from "@/components/PropertyHederImage";
 import ShareButton from "@/components/property-form/ShareButton";
-import { getProperties, getPropertiesIds } from "@/lib/services/property-services";
-
-// export async function getStaticPaths() {
-//   const propertiesId = await getPropertiesIds();
-//   const paths = propertiesId.map((propertyId) => ({
-//     params: { id: propertyId._id.toString() },
-//   }));
-//   console.log(paths);
-//   return { paths, fallback: false };
-// }
 
 async function PropertyPage({ params }) {
   const property = await getProperty(params.id);
