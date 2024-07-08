@@ -11,8 +11,8 @@ async function ProfilePage() {
   const profileEmail = session?.user?.email;
 
   return (
-    <section className="bg-blue-50">
-      <div className="container m-auto px-12 py-24">
+    <section className="bg-blue-50 flex flex-1">
+      <div className="container mx-auto mt-24">
         <div className="bg-white mb-4 shadow-md rounded-md border m-4 md:m-0">
           <div className="flex flex-col md:flex-row">
             <div className="md:w-1/3 m-4">

@@ -12,7 +12,7 @@ function PropertyCard({ property }) {
         src={property.images[0]}
         alt={`${property.name} photo`}
         sizes="(min-width: 1024px) 29vw, (min-width: 768px) 44vw, 89vw"
-        className="w-full h-auto rounded-t-xl"
+        className="w-fit h-fit object-cover aspect-video rounded-t-xl"
         width={16}
         height={9}
       />

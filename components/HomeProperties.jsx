@@ -1,13 +1,18 @@
 import Link from "next/link";
 import FeaturedProperties from "./FeaturedProperties";
 import RecentProperties from "./RecentProperties";
+import { Suspense } from "react";
 
 async function HomeProperties() {
   return (
     <>
-      <FeaturedProperties />
+      <Suspense fallback={"loading..."}>
+        <FeaturedProperties />
+      </Suspense>
 
-      <RecentProperties />
+      <Suspense fallback={"Loading..."}>
+        <RecentProperties />
+      </Suspense>
 
       <section className="m-auto max-w-lg my-10 px-6">
         <Link

@@ -1,20 +1,24 @@
-import { GET as getApiSearchProperties } from "@/app/api/properties/search/route";
 import Pagination from "@/components/Pagination";
 import Properties from "@/components/Properties";
 import PropertySearchForm from "@/components/property-form/PropertySearchForm";
+import { Suspense } from "react";
+import LoadingPage from "../loading";
 
-async function PropertiesPage({ searchParams }) {
-  const properties = await getApiSearchProperties(searchParams);
+export const dynamic = "force-dynamic";
 
+function PropertiesPage({ searchParams }) {
   return (
     <>
       <PropertySearchForm searchParams={searchParams} useSort={true} />
 
-      <Properties properties={properties.docs} />
-
-      <Pagination paginate={{ ...properties, docs: null }} />
+      <Suspense fallback={LoadingPage}>
+        <Properties searchParams={searchParams} />
+        <Pagination searchParams={searchParams} />
+      </Suspense>
     </>
   );
 }
+
+function loading(params) {}
 
 export default PropertiesPage;

@@ -14,7 +14,7 @@ export async function GET(req) {
     const { searchParams } = new URL(req?.url || process.env.NEXT_PUBLIC_DOMAIN);
     const location = searchParams.get("location") || req.location;
     const propertyType = searchParams.get("type") || req.type;
-    const page = searchParams.get("page") || req.type || 1;
+    const page = parseInt(searchParams.get("page")) || parseInt(req.page) || 1;
     const sort = sortSchema[searchParams.get("sort") || req.sort] || -1;
 
     const options = {
